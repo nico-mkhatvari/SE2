@@ -1,0 +1,19 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="Use case diagram" version="3">
+  <DEPS>
+    <ID name="Use case diagram" mc="AnalystProject" uid="e399acf1-8485-4374-85f8-a887176e1d04"/>
+    <COMPID name="Use case diagram" mc="PropertyContainer" uid="5f64eb9c-52c0-4558-9e80-e84cf329dc65"/>
+  </DEPS>
+  <OBJECT>
+    <ID name="Use case diagram" mc="AnalystProject" uid="e399acf1-8485-4374-85f8-a887176e1d04"/>
+    <ATTRIBUTES>
+      <ATT name="Name"><![CDATA[Use case diagram]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES>
+      <COMP relation="PropertyRoot">
+        <COMPID name="Use case diagram" mc="PropertyContainer" uid="5f64eb9c-52c0-4558-9e80-e84cf329dc65"/>
+      </COMP>
+    </DEPENDENCIES>
+  </OBJECT>
+</EXT>

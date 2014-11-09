@@ -1,0 +1,69 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="use case diagram" version="3">
+  <DEPS>
+    <ID name="use case diagram" mc="Package" uid="f98da7c7-457d-4278-8b35-19572ecdac43"/>
+    <COMPID name="Accept/Decline invitation" mc="UseCase" uid="38d4e366-a330-4963-a475-e94d9c2aa62c"/>
+    <COMPID name="Check calendar" mc="UseCase" uid="60ee4981-0b3b-47b3-ad8b-44b2e7cb79f4"/>
+    <COMPID name="Check inbox" mc="UseCase" uid="e3c566a3-5152-4523-845f-cfb405ff7e9e"/>
+    <COMPID name="Class" mc="Class" uid="5b186d29-db9f-45b8-9477-10e988fda102"/>
+    <COMPID name="Create event" mc="UseCase" uid="57702660-73ce-468b-8c07-e23bad9b36b2"/>
+    <COMPID name="Delete event" mc="UseCase" uid="fd736aa1-30fc-4796-8e51-539133b55c6f"/>
+    <COMPID name="Log out" mc="UseCase" uid="0733201e-124f-4260-8387-d390942ec0fa"/>
+    <COMPID name="Not Registered User" mc="Actor" uid="c8479b06-a772-4283-988f-a218131f452a"/>
+    <COMPID name="Receive invitation" mc="UseCase" uid="228b8ec8-f9a6-4cd2-a26a-883c3c7e7cae"/>
+    <COMPID name="Receive notification" mc="UseCase" uid="419c9a9f-166a-4f08-b819-927ccb278523"/>
+    <COMPID name="Recover password" mc="UseCase" uid="511fc67b-6d57-4a29-8b7d-0d117d24b964"/>
+    <COMPID name="Registered User" mc="Actor" uid="49d0c08f-ad37-4e8b-8400-59958cfc33c6"/>
+    <COMPID name="Search calendar" mc="UseCase" uid="ff6494af-3030-4c13-9f32-3f8d0a5a6b2b"/>
+    <COMPID name="Sign in" mc="UseCase" uid="38a942c6-2068-44c7-9fea-2d53044b87e4"/>
+    <COMPID name="Sign up" mc="UseCase" uid="14c6f9b7-b426-47d8-8fd0-07eccd9ce058"/>
+    <COMPID name="Update event" mc="UseCase" uid="86186c5a-2980-40e9-97e8-b8b6bc021337"/>
+    <COMPID name="View details" mc="UseCase" uid="0b06696c-7580-4b32-8ef2-32b6d31db635"/>
+    <COMPID name="Web weather service" mc="Actor" uid="8d073657-4339-4469-a38f-f718e4e362f3"/>
+    <COMPID name="Web weather service" mc="Actor" uid="499f5b85-dc6e-416a-9ba9-1432cc4b88c3"/>
+    <COMPID name="Web weather service" mc="Actor" uid="6073d83c-9de6-4afb-91aa-6a0970572cd0"/>
+    <COMPID name="overview diagram" mc="ClassDiagram" uid="0b9c6b67-e9b1-494b-85db-be55f8e8b543"/>
+    <COMPID name="use case diagram Use Case diagram" mc="UseCaseDiagram" uid="aac2fd84-0c8e-4d51-96c4-05f83999c375"/>
+  </DEPS>
+  <OBJECT>
+    <ID name="use case diagram" mc="Package" uid="f98da7c7-457d-4278-8b35-19572ecdac43"/>
+    <PID name="Use case diagram" mc="Project" uid="da40aa7d-f0c7-4807-9fed-4fa3473c9a56"/>
+    <ATTRIBUTES>
+      <ATT name="IsInstantiable">false</ATT>
+      <ATT name="IsAbstract">false</ATT>
+      <ATT name="IsLeaf">false</ATT>
+      <ATT name="IsRoot">false</ATT>
+      <ATT name="Visibility">Public</ATT>
+      <ATT name="Name"><![CDATA[use case diagram]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES>
+      <COMP relation="OwnedElement">
+        <COMPID name="Class" mc="Class" uid="5b186d29-db9f-45b8-9477-10e988fda102"/>
+        <COMPID name="Registered User" mc="Actor" uid="49d0c08f-ad37-4e8b-8400-59958cfc33c6"/>
+        <COMPID name="Not Registered User" mc="Actor" uid="c8479b06-a772-4283-988f-a218131f452a"/>
+        <COMPID name="Sign up" mc="UseCase" uid="14c6f9b7-b426-47d8-8fd0-07eccd9ce058"/>
+        <COMPID name="Check inbox" mc="UseCase" uid="e3c566a3-5152-4523-845f-cfb405ff7e9e"/>
+        <COMPID name="Create event" mc="UseCase" uid="57702660-73ce-468b-8c07-e23bad9b36b2"/>
+        <COMPID name="Sign in" mc="UseCase" uid="38a942c6-2068-44c7-9fea-2d53044b87e4"/>
+        <COMPID name="View details" mc="UseCase" uid="0b06696c-7580-4b32-8ef2-32b6d31db635"/>
+        <COMPID name="Recover password" mc="UseCase" uid="511fc67b-6d57-4a29-8b7d-0d117d24b964"/>
+        <COMPID name="Delete event" mc="UseCase" uid="fd736aa1-30fc-4796-8e51-539133b55c6f"/>
+        <COMPID name="Update event" mc="UseCase" uid="86186c5a-2980-40e9-97e8-b8b6bc021337"/>
+        <COMPID name="Search calendar" mc="UseCase" uid="ff6494af-3030-4c13-9f32-3f8d0a5a6b2b"/>
+        <COMPID name="Log out" mc="UseCase" uid="0733201e-124f-4260-8387-d390942ec0fa"/>
+        <COMPID name="Check calendar" mc="UseCase" uid="60ee4981-0b3b-47b3-ad8b-44b2e7cb79f4"/>
+        <COMPID name="Accept/Decline invitation" mc="UseCase" uid="38d4e366-a330-4963-a475-e94d9c2aa62c"/>
+        <COMPID name="Receive notification" mc="UseCase" uid="419c9a9f-166a-4f08-b819-927ccb278523"/>
+        <COMPID name="Web weather service" mc="Actor" uid="499f5b85-dc6e-416a-9ba9-1432cc4b88c3"/>
+        <COMPID name="Web weather service" mc="Actor" uid="8d073657-4339-4469-a38f-f718e4e362f3"/>
+        <COMPID name="Web weather service" mc="Actor" uid="6073d83c-9de6-4afb-91aa-6a0970572cd0"/>
+        <COMPID name="Receive invitation" mc="UseCase" uid="228b8ec8-f9a6-4cd2-a26a-883c3c7e7cae"/>
+      </COMP>
+      <COMP relation="Product">
+        <COMPID name="overview diagram" mc="ClassDiagram" uid="0b9c6b67-e9b1-494b-85db-be55f8e8b543"/>
+        <COMPID name="use case diagram Use Case diagram" mc="UseCaseDiagram" uid="aac2fd84-0c8e-4d51-96c4-05f83999c375"/>
+      </COMP>
+    </DEPENDENCIES>
+  </OBJECT>
+</EXT>
