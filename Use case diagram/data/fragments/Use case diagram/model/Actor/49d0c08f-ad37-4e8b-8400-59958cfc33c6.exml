@@ -6,6 +6,7 @@
     <EXTID name="Check inbox" mc="UseCase" uid="e3c566a3-5152-4523-845f-cfb405ff7e9e"/>
     <EXTID name="Create event" mc="UseCase" uid="57702660-73ce-468b-8c07-e23bad9b36b2"/>
     <EXTID name="Log out" mc="UseCase" uid="0733201e-124f-4260-8387-d390942ec0fa"/>
+    <EXTID name="Modify event" mc="UseCase" uid="d69fbba4-7efd-4ddf-961c-b0c625134f4d"/>
     <EXTID name="Sign in" mc="UseCase" uid="38a942c6-2068-44c7-9fea-2d53044b87e4"/>
   </DEPS>
   <OBJECT>
@@ -339,6 +340,70 @@
             </COMP>
             <COMP relation="Association">
               <COMPID name="" mc="Association" uid="4ccce083-328e-49aa-acd3-6a231a8bd98c"/>
+            </COMP>
+          </DEPENDENCIES>
+        </OBJECT>
+        <OBJECT>
+          <ID name="" mc="AssociationEnd" uid="eb44c64a-9da5-4cc4-91fa-2a6cbf23d367"/>
+          <PID name="Registered User" mc="Actor" uid="49d0c08f-ad37-4e8b-8400-59958cfc33c6"/>
+          <ATTRIBUTES>
+            <ATT name="Aggregation">KindIsAssociation</ATT>
+            <ATT name="IsChangeable">true</ATT>
+            <ATT name="Changeable">ReadWrite</ATT>
+            <ATT name="IsDerived">false</ATT>
+            <ATT name="IsOrdered">false</ATT>
+            <ATT name="IsUnique">false</ATT>
+            <ATT name="MultiplicityMin"><![CDATA[0]]></ATT>
+            <ATT name="MultiplicityMax"><![CDATA[1]]></ATT>
+            <ATT name="Visibility">Public</ATT>
+            <ATT name="IsClass">false</ATT>
+            <ATT name="IsAbstract">false</ATT>
+            <ATT name="Name"></ATT>
+            <ATT name="status">1970354901745664</ATT>
+          </ATTRIBUTES>
+          <DEPENDENCIES>
+            <LINK relation="Target">
+              <ID name="Modify event" mc="UseCase" uid="d69fbba4-7efd-4ddf-961c-b0c625134f4d"/>
+            </LINK>
+            <COMP relation="Opposite">
+              <OBJECT>
+                <ID name="" mc="AssociationEnd" uid="cae48e7f-e1ff-45e2-96da-a77449eb8270"/>
+                <PID name="Registered User" mc="Actor" uid="49d0c08f-ad37-4e8b-8400-59958cfc33c6"/>
+                <ATTRIBUTES>
+                  <ATT name="Aggregation">KindIsAssociation</ATT>
+                  <ATT name="IsChangeable">true</ATT>
+                  <ATT name="Changeable">ReadWrite</ATT>
+                  <ATT name="IsDerived">false</ATT>
+                  <ATT name="IsOrdered">false</ATT>
+                  <ATT name="IsUnique">false</ATT>
+                  <ATT name="MultiplicityMin"><![CDATA[0]]></ATT>
+                  <ATT name="MultiplicityMax"><![CDATA[1]]></ATT>
+                  <ATT name="Visibility">Public</ATT>
+                  <ATT name="IsClass">false</ATT>
+                  <ATT name="IsAbstract">false</ATT>
+                  <ATT name="Name"></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <COMP relation="Opposite">
+                    <COMPID name="" mc="AssociationEnd" uid="eb44c64a-9da5-4cc4-91fa-2a6cbf23d367"/>
+                  </COMP>
+                  <COMP relation="Association">
+                    <OBJECT>
+                      <ID name="" mc="Association" uid="4c842f75-5ab4-45f1-a5c8-09b8d0ee12c5"/>
+                      <PID name="Registered User" mc="Actor" uid="49d0c08f-ad37-4e8b-8400-59958cfc33c6"/>
+                      <ATTRIBUTES>
+                        <ATT name="Name"></ATT>
+                        <ATT name="status">1970354901745664</ATT>
+                      </ATTRIBUTES>
+                      <DEPENDENCIES></DEPENDENCIES>
+                    </OBJECT>
+                  </COMP>
+                </DEPENDENCIES>
+              </OBJECT>
+            </COMP>
+            <COMP relation="Association">
+              <COMPID name="" mc="Association" uid="4c842f75-5ab4-45f1-a5c8-09b8d0ee12c5"/>
             </COMP>
           </DEPENDENCIES>
         </OBJECT>

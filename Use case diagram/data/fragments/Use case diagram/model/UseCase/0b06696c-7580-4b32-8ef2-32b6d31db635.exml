@@ -2,9 +2,11 @@
 <!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="View details" version="3">
   <DEPS>
     <ID name="View details" mc="UseCase" uid="0b06696c-7580-4b32-8ef2-32b6d31db635"/>
+    <EXTID name="Get weather forecast" mc="UseCase" uid="2865f477-2bb6-4315-977c-64f74bb13059"/>
     <FOREIGNID name="constraint" mc="NoteType" uid="00bc0b8c-0000-251b-0000-000000000000"/>
     <FOREIGNID name="description" mc="NoteType" uid="00000000-0000-3e81-0000-000000000000"/>
     <FOREIGNID name="exception" mc="NoteType" uid="00bc0b8c-0000-2519-0000-000000000000"/>
+    <FOREIGNID name="include" mc="Stereotype" uid="00000000-0000-9c49-0000-000000000000"/>
     <FOREIGNID name="non-functional constraint" mc="NoteType" uid="00bc0c08-0000-242c-0000-000000000000"/>
     <FOREIGNID name="postcondition" mc="NoteType" uid="00bc0b8c-0000-2517-0000-000000000000"/>
     <FOREIGNID name="precondition" mc="NoteType" uid="00bc0b8c-0000-2515-0000-000000000000"/>
@@ -22,6 +24,24 @@
       <ATT name="status">1970354901745664</ATT>
     </ATTRIBUTES>
     <DEPENDENCIES>
+      <COMP relation="Used">
+        <OBJECT>
+          <ID name="UseCaseDependency" mc="UseCaseDependency" uid="68586256-00d5-4478-8a76-39c1e2859d54"/>
+          <PID name="View details" mc="UseCase" uid="0b06696c-7580-4b32-8ef2-32b6d31db635"/>
+          <ATTRIBUTES>
+            <ATT name="Name"><![CDATA[UseCaseDependency]]></ATT>
+            <ATT name="status">1970354901745664</ATT>
+          </ATTRIBUTES>
+          <DEPENDENCIES>
+            <LINK relation="Target">
+              <ID name="Get weather forecast" mc="UseCase" uid="2865f477-2bb6-4315-977c-64f74bb13059"/>
+            </LINK>
+            <LINK relation="Extension">
+              <FOREIGNID name="include" mc="Stereotype" uid="00000000-0000-9c49-0000-000000000000"/>
+            </LINK>
+          </DEPENDENCIES>
+        </OBJECT>
+      </COMP>
       <COMP relation="Descriptor">
         <OBJECT>
           <ID name="" mc="Note" uid="f1a7631b-0951-4229-ad26-38fc5a5e6363"/>

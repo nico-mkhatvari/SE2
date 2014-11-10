@@ -2,12 +2,10 @@
 <!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="Update event" version="3">
   <DEPS>
     <ID name="Update event" mc="UseCase" uid="86186c5a-2980-40e9-97e8-b8b6bc021337"/>
-    <EXTID name="Create event" mc="UseCase" uid="57702660-73ce-468b-8c07-e23bad9b36b2"/>
-    <EXTID name="Receive notification" mc="UseCase" uid="419c9a9f-166a-4f08-b819-927ccb278523"/>
+    <EXTID name="Modify event" mc="UseCase" uid="d69fbba4-7efd-4ddf-961c-b0c625134f4d"/>
     <FOREIGNID name="constraint" mc="NoteType" uid="00bc0b8c-0000-251b-0000-000000000000"/>
     <FOREIGNID name="description" mc="NoteType" uid="00000000-0000-3e81-0000-000000000000"/>
     <FOREIGNID name="exception" mc="NoteType" uid="00bc0b8c-0000-2519-0000-000000000000"/>
-    <FOREIGNID name="extend" mc="Stereotype" uid="00000000-0000-9c48-0000-000000000000"/>
     <FOREIGNID name="non-functional constraint" mc="NoteType" uid="00bc0c08-0000-242c-0000-000000000000"/>
     <FOREIGNID name="postcondition" mc="NoteType" uid="00bc0b8c-0000-2517-0000-000000000000"/>
     <FOREIGNID name="precondition" mc="NoteType" uid="00bc0b8c-0000-2515-0000-000000000000"/>
@@ -25,36 +23,18 @@
       <ATT name="status">1970354901745664</ATT>
     </ATTRIBUTES>
     <DEPENDENCIES>
-      <COMP relation="Used">
+      <COMP relation="Parent">
         <OBJECT>
-          <ID name="UseCaseDependency" mc="UseCaseDependency" uid="bbbc10d1-727d-45d9-82ac-06c6029768d1"/>
+          <ID name="Generalization" mc="Generalization" uid="013073bd-edd8-44f7-8b47-04e055e45b8c"/>
           <PID name="Update event" mc="UseCase" uid="86186c5a-2980-40e9-97e8-b8b6bc021337"/>
           <ATTRIBUTES>
-            <ATT name="Name"><![CDATA[UseCaseDependency]]></ATT>
+            <ATT name="Discriminator"></ATT>
+            <ATT name="Name"><![CDATA[Generalization]]></ATT>
             <ATT name="status">1970354901745664</ATT>
           </ATTRIBUTES>
           <DEPENDENCIES>
-            <LINK relation="Target">
-              <ID name="Create event" mc="UseCase" uid="57702660-73ce-468b-8c07-e23bad9b36b2"/>
-            </LINK>
-            <LINK relation="Extension">
-              <FOREIGNID name="extend" mc="Stereotype" uid="00000000-0000-9c48-0000-000000000000"/>
-            </LINK>
-          </DEPENDENCIES>
-        </OBJECT>
-        <OBJECT>
-          <ID name="UseCaseDependency" mc="UseCaseDependency" uid="59680eb7-7ca2-4e28-930c-c9ebc27df78f"/>
-          <PID name="Update event" mc="UseCase" uid="86186c5a-2980-40e9-97e8-b8b6bc021337"/>
-          <ATTRIBUTES>
-            <ATT name="Name"><![CDATA[UseCaseDependency]]></ATT>
-            <ATT name="status">1970354901745664</ATT>
-          </ATTRIBUTES>
-          <DEPENDENCIES>
-            <LINK relation="Target">
-              <ID name="Receive notification" mc="UseCase" uid="419c9a9f-166a-4f08-b819-927ccb278523"/>
-            </LINK>
-            <LINK relation="Extension">
-              <FOREIGNID name="extend" mc="Stereotype" uid="00000000-0000-9c48-0000-000000000000"/>
+            <LINK relation="SuperType">
+              <ID name="Modify event" mc="UseCase" uid="d69fbba4-7efd-4ddf-961c-b0c625134f4d"/>
             </LINK>
           </DEPENDENCIES>
         </OBJECT>

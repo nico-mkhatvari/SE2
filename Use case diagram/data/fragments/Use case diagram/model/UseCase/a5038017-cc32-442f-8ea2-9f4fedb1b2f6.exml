@@ -1,18 +1,20 @@
 <?xml version="1.0" ?>
-<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="Create event" version="3">
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="Get weather forecast" version="3">
   <DEPS>
-    <ID name="Create event" mc="UseCase" uid="57702660-73ce-468b-8c07-e23bad9b36b2"/>
+    <ID name="Get weather forecast" mc="UseCase" uid="a5038017-cc32-442f-8ea2-9f4fedb1b2f6"/>
+    <EXTID name="Get weather forecast" mc="UseCase" uid="2865f477-2bb6-4315-977c-64f74bb13059"/>
     <EXTID name="Receive notification" mc="UseCase" uid="419c9a9f-166a-4f08-b819-927ccb278523"/>
     <FOREIGNID name="constraint" mc="NoteType" uid="00bc0b8c-0000-251b-0000-000000000000"/>
     <FOREIGNID name="description" mc="NoteType" uid="00000000-0000-3e81-0000-000000000000"/>
     <FOREIGNID name="exception" mc="NoteType" uid="00bc0b8c-0000-2519-0000-000000000000"/>
+    <FOREIGNID name="extend" mc="Stereotype" uid="00000000-0000-9c48-0000-000000000000"/>
     <FOREIGNID name="include" mc="Stereotype" uid="00000000-0000-9c49-0000-000000000000"/>
     <FOREIGNID name="non-functional constraint" mc="NoteType" uid="00bc0c08-0000-242c-0000-000000000000"/>
     <FOREIGNID name="postcondition" mc="NoteType" uid="00bc0b8c-0000-2517-0000-000000000000"/>
     <FOREIGNID name="precondition" mc="NoteType" uid="00bc0b8c-0000-2515-0000-000000000000"/>
   </DEPS>
   <OBJECT>
-    <ID name="Create event" mc="UseCase" uid="57702660-73ce-468b-8c07-e23bad9b36b2"/>
+    <ID name="Get weather forecast" mc="UseCase" uid="a5038017-cc32-442f-8ea2-9f4fedb1b2f6"/>
     <PID name="use case diagram" mc="Package" uid="f98da7c7-457d-4278-8b35-19572ecdac43"/>
     <ATTRIBUTES>
       <ATT name="IsElementary">false</ATT>
@@ -20,14 +22,14 @@
       <ATT name="IsLeaf">false</ATT>
       <ATT name="IsRoot">false</ATT>
       <ATT name="Visibility">Public</ATT>
-      <ATT name="Name"><![CDATA[Create event]]></ATT>
+      <ATT name="Name"><![CDATA[Get weather forecast]]></ATT>
       <ATT name="status">1970354901745664</ATT>
     </ATTRIBUTES>
     <DEPENDENCIES>
       <COMP relation="Used">
         <OBJECT>
-          <ID name="UseCaseDependency" mc="UseCaseDependency" uid="d6053aa5-3b2e-425d-879f-9806c91e988f"/>
-          <PID name="Create event" mc="UseCase" uid="57702660-73ce-468b-8c07-e23bad9b36b2"/>
+          <ID name="UseCaseDependency" mc="UseCaseDependency" uid="6eda0032-d8c1-4695-9623-781e72b6371d"/>
+          <PID name="Get weather forecast" mc="UseCase" uid="a5038017-cc32-442f-8ea2-9f4fedb1b2f6"/>
           <ATTRIBUTES>
             <ATT name="Name"><![CDATA[UseCaseDependency]]></ATT>
             <ATT name="status">1970354901745664</ATT>
@@ -37,6 +39,22 @@
               <ID name="Receive notification" mc="UseCase" uid="419c9a9f-166a-4f08-b819-927ccb278523"/>
             </LINK>
             <LINK relation="Extension">
+              <FOREIGNID name="extend" mc="Stereotype" uid="00000000-0000-9c48-0000-000000000000"/>
+            </LINK>
+          </DEPENDENCIES>
+        </OBJECT>
+        <OBJECT>
+          <ID name="UseCaseDependency" mc="UseCaseDependency" uid="cf661cc7-bd6d-4f08-91f5-8122a0d83ce1"/>
+          <PID name="Get weather forecast" mc="UseCase" uid="a5038017-cc32-442f-8ea2-9f4fedb1b2f6"/>
+          <ATTRIBUTES>
+            <ATT name="Name"><![CDATA[UseCaseDependency]]></ATT>
+            <ATT name="status">1970354901745664</ATT>
+          </ATTRIBUTES>
+          <DEPENDENCIES>
+            <LINK relation="Target">
+              <ID name="Get weather forecast" mc="UseCase" uid="2865f477-2bb6-4315-977c-64f74bb13059"/>
+            </LINK>
+            <LINK relation="Extension">
               <FOREIGNID name="include" mc="Stereotype" uid="00000000-0000-9c49-0000-000000000000"/>
             </LINK>
           </DEPENDENCIES>
@@ -44,8 +62,8 @@
       </COMP>
       <COMP relation="Descriptor">
         <OBJECT>
-          <ID name="" mc="Note" uid="38b1cbfa-73f7-4f5e-9d92-9ffc104018a8"/>
-          <PID name="Create event" mc="UseCase" uid="57702660-73ce-468b-8c07-e23bad9b36b2"/>
+          <ID name="" mc="Note" uid="6d6927d4-5cd2-4d7f-a7db-d7624d17fe0c"/>
+          <PID name="Get weather forecast" mc="UseCase" uid="a5038017-cc32-442f-8ea2-9f4fedb1b2f6"/>
           <ATTRIBUTES>
             <ATT name="Content"><![CDATA[...]]></ATT>
             <ATT name="Name"></ATT>
@@ -58,8 +76,8 @@
           </DEPENDENCIES>
         </OBJECT>
         <OBJECT>
-          <ID name="" mc="Note" uid="a46842d9-8f79-4d7e-831a-feeeedad6ee3"/>
-          <PID name="Create event" mc="UseCase" uid="57702660-73ce-468b-8c07-e23bad9b36b2"/>
+          <ID name="" mc="Note" uid="2f7ce055-3d9f-47ba-9de0-52aa4b281921"/>
+          <PID name="Get weather forecast" mc="UseCase" uid="a5038017-cc32-442f-8ea2-9f4fedb1b2f6"/>
           <ATTRIBUTES>
             <ATT name="Content"><![CDATA[...]]></ATT>
             <ATT name="Name"></ATT>
@@ -72,8 +90,8 @@
           </DEPENDENCIES>
         </OBJECT>
         <OBJECT>
-          <ID name="" mc="Note" uid="5b6e95bd-0d74-412a-bf85-e0c088d3365b"/>
-          <PID name="Create event" mc="UseCase" uid="57702660-73ce-468b-8c07-e23bad9b36b2"/>
+          <ID name="" mc="Note" uid="e5dfc594-b486-4f98-8d3a-4c9dbd754701"/>
+          <PID name="Get weather forecast" mc="UseCase" uid="a5038017-cc32-442f-8ea2-9f4fedb1b2f6"/>
           <ATTRIBUTES>
             <ATT name="Content"><![CDATA[...]]></ATT>
             <ATT name="Name"></ATT>
@@ -86,8 +104,8 @@
           </DEPENDENCIES>
         </OBJECT>
         <OBJECT>
-          <ID name="" mc="Note" uid="bc3ca17b-df89-47c2-8964-84527c6572b9"/>
-          <PID name="Create event" mc="UseCase" uid="57702660-73ce-468b-8c07-e23bad9b36b2"/>
+          <ID name="" mc="Note" uid="f02825a2-8c11-4e15-b092-e6f30bc6ee31"/>
+          <PID name="Get weather forecast" mc="UseCase" uid="a5038017-cc32-442f-8ea2-9f4fedb1b2f6"/>
           <ATTRIBUTES>
             <ATT name="Content"><![CDATA[...]]></ATT>
             <ATT name="Name"></ATT>
@@ -100,8 +118,8 @@
           </DEPENDENCIES>
         </OBJECT>
         <OBJECT>
-          <ID name="" mc="Note" uid="47ac476c-c809-444b-a88b-9c4408e7c201"/>
-          <PID name="Create event" mc="UseCase" uid="57702660-73ce-468b-8c07-e23bad9b36b2"/>
+          <ID name="" mc="Note" uid="10a238c4-604e-4efe-85be-810b0079c395"/>
+          <PID name="Get weather forecast" mc="UseCase" uid="a5038017-cc32-442f-8ea2-9f4fedb1b2f6"/>
           <ATTRIBUTES>
             <ATT name="Content"><![CDATA[...]]></ATT>
             <ATT name="Name"></ATT>
@@ -114,8 +132,8 @@
           </DEPENDENCIES>
         </OBJECT>
         <OBJECT>
-          <ID name="" mc="Note" uid="e047859e-b2c3-4a83-a590-72a8b83d9fbe"/>
-          <PID name="Create event" mc="UseCase" uid="57702660-73ce-468b-8c07-e23bad9b36b2"/>
+          <ID name="" mc="Note" uid="30e7dede-5ec0-4543-8247-44b7cddb3fca"/>
+          <PID name="Get weather forecast" mc="UseCase" uid="a5038017-cc32-442f-8ea2-9f4fedb1b2f6"/>
           <ATTRIBUTES>
             <ATT name="Content"><![CDATA[...]]></ATT>
             <ATT name="Name"></ATT>

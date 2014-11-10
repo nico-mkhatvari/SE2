@@ -3,13 +3,11 @@
   <DEPS>
     <ID name="Accept/Decline invitation" mc="UseCase" uid="38d4e366-a330-4963-a475-e94d9c2aa62c"/>
     <EXTID name="Check calendar" mc="UseCase" uid="60ee4981-0b3b-47b3-ad8b-44b2e7cb79f4"/>
-    <EXTID name="Check inbox" mc="UseCase" uid="e3c566a3-5152-4523-845f-cfb405ff7e9e"/>
     <EXTID name="View details" mc="UseCase" uid="0b06696c-7580-4b32-8ef2-32b6d31db635"/>
     <FOREIGNID name="constraint" mc="NoteType" uid="00bc0b8c-0000-251b-0000-000000000000"/>
     <FOREIGNID name="description" mc="NoteType" uid="00000000-0000-3e81-0000-000000000000"/>
     <FOREIGNID name="exception" mc="NoteType" uid="00bc0b8c-0000-2519-0000-000000000000"/>
     <FOREIGNID name="extend" mc="Stereotype" uid="00000000-0000-9c48-0000-000000000000"/>
-    <FOREIGNID name="include" mc="Stereotype" uid="00000000-0000-9c49-0000-000000000000"/>
     <FOREIGNID name="non-functional constraint" mc="NoteType" uid="00bc0c08-0000-242c-0000-000000000000"/>
     <FOREIGNID name="postcondition" mc="NoteType" uid="00bc0b8c-0000-2517-0000-000000000000"/>
     <FOREIGNID name="precondition" mc="NoteType" uid="00bc0b8c-0000-2515-0000-000000000000"/>
@@ -53,26 +51,10 @@
           </ATTRIBUTES>
           <DEPENDENCIES>
             <LINK relation="Target">
-              <ID name="Check inbox" mc="UseCase" uid="e3c566a3-5152-4523-845f-cfb405ff7e9e"/>
-            </LINK>
-            <LINK relation="Extension">
-              <FOREIGNID name="extend" mc="Stereotype" uid="00000000-0000-9c48-0000-000000000000"/>
-            </LINK>
-          </DEPENDENCIES>
-        </OBJECT>
-        <OBJECT>
-          <ID name="UseCaseDependency" mc="UseCaseDependency" uid="48b229f7-dc10-4061-b6fd-2c6988c60881"/>
-          <PID name="Accept/Decline invitation" mc="UseCase" uid="38d4e366-a330-4963-a475-e94d9c2aa62c"/>
-          <ATTRIBUTES>
-            <ATT name="Name"><![CDATA[UseCaseDependency]]></ATT>
-            <ATT name="status">1970354901745664</ATT>
-          </ATTRIBUTES>
-          <DEPENDENCIES>
-            <LINK relation="Target">
               <ID name="View details" mc="UseCase" uid="0b06696c-7580-4b32-8ef2-32b6d31db635"/>
             </LINK>
             <LINK relation="Extension">
-              <FOREIGNID name="include" mc="Stereotype" uid="00000000-0000-9c49-0000-000000000000"/>
+              <FOREIGNID name="extend" mc="Stereotype" uid="00000000-0000-9c48-0000-000000000000"/>
             </LINK>
           </DEPENDENCIES>
         </OBJECT>

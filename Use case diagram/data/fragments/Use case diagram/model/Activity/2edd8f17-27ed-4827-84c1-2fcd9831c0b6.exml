@@ -1,0 +1,230 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="Activity" version="3">
+  <DEPS>
+    <ID name="Activity" mc="Activity" uid="2edd8f17-27ed-4827-84c1-2fcd9831c0b6"/>
+    <COMPID name="Activity Activity diagram" mc="ActivityDiagram" uid="a25b92a5-9b55-47da-8e02-4043f772cd73"/>
+  </DEPS>
+  <OBJECT>
+    <ID name="Activity" mc="Activity" uid="2edd8f17-27ed-4827-84c1-2fcd9831c0b6"/>
+    <PID name="use case diagram" mc="Package" uid="f98da7c7-457d-4278-8b35-19572ecdac43"/>
+    <ATTRIBUTES>
+      <ATT name="IsSingleExecution">false</ATT>
+      <ATT name="IsReadOnly">false</ATT>
+      <ATT name="IsReentrant">false</ATT>
+      <ATT name="Name"><![CDATA[Activity]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES>
+      <COMP relation="OwnedGroup">
+        <OBJECT>
+          <ID name="Partition" mc="ActivityPartition" uid="d8d404a0-3eca-4cde-9e32-0be0367d09cd"/>
+          <PID name="Activity" mc="Activity" uid="2edd8f17-27ed-4827-84c1-2fcd9831c0b6"/>
+          <ATTRIBUTES>
+            <ATT name="IsDimension">false</ATT>
+            <ATT name="IsExternal">false</ATT>
+            <ATT name="Name"><![CDATA[Partition]]></ATT>
+            <ATT name="status">1970354901745664</ATT>
+          </ATTRIBUTES>
+          <DEPENDENCIES>
+            <COMP relation="ContainedNode">
+              <OBJECT>
+                <ID name="Initial Node" mc="InitialNode" uid="0941e494-c301-41f0-8a71-6c081ddb3d44"/>
+                <PID name="Activity" mc="Activity" uid="2edd8f17-27ed-4827-84c1-2fcd9831c0b6"/>
+                <ATTRIBUTES>
+                  <ATT name="Name"><![CDATA[Initial Node]]></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES></DEPENDENCIES>
+              </OBJECT>
+              <OBJECT>
+                <ID name="" mc="InstanceNode" uid="74e565a1-b45d-401f-b1ac-57f67964cbb7"/>
+                <PID name="Activity" mc="Activity" uid="2edd8f17-27ed-4827-84c1-2fcd9831c0b6"/>
+                <ATTRIBUTES>
+                  <ATT name="IsControlType">false</ATT>
+                  <ATT name="Ordering">FIFO</ATT>
+                  <ATT name="SelectionBehavior"></ATT>
+                  <ATT name="UpperBound"><![CDATA[1]]></ATT>
+                  <ATT name="Name"></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <LINK relation="Represented">
+                    <REFOBJ>
+                      <ID name="" mc="BindableInstance" uid="88dee955-7d27-48a5-b930-8f5dc931df62"/>
+                      <PID name="Activity" mc="Activity" uid="2edd8f17-27ed-4827-84c1-2fcd9831c0b6"/>
+                    </REFOBJ>
+                  </LINK>
+                </DEPENDENCIES>
+              </OBJECT>
+              <OBJECT>
+                <ID name="Action" mc="OpaqueAction" uid="910b3343-d660-4e1a-8a17-40404f7929ed"/>
+                <PID name="Activity" mc="Activity" uid="2edd8f17-27ed-4827-84c1-2fcd9831c0b6"/>
+                <ATTRIBUTES>
+                  <ATT name="Body"></ATT>
+                  <ATT name="IsMultipleInstance">false</ATT>
+                  <ATT name="IsCompensation">false</ATT>
+                  <ATT name="Name"><![CDATA[Action]]></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES></DEPENDENCIES>
+              </OBJECT>
+              <OBJECT>
+                <ID name="Call Behavior" mc="CallBehaviorAction" uid="a7cf99f7-ae94-452e-b798-35be3038e421"/>
+                <PID name="Activity" mc="Activity" uid="2edd8f17-27ed-4827-84c1-2fcd9831c0b6"/>
+                <ATTRIBUTES>
+                  <ATT name="IsSynchronous">true</ATT>
+                  <ATT name="IsMultipleInstance">false</ATT>
+                  <ATT name="IsCompensation">false</ATT>
+                  <ATT name="Name"><![CDATA[Call Behavior]]></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES></DEPENDENCIES>
+              </OBJECT>
+              <OBJECT>
+                <ID name="Call Behavior1" mc="CallBehaviorAction" uid="a1bd6bd7-66db-4b4f-8a88-a79fdae12373"/>
+                <PID name="Activity" mc="Activity" uid="2edd8f17-27ed-4827-84c1-2fcd9831c0b6"/>
+                <ATTRIBUTES>
+                  <ATT name="IsSynchronous">true</ATT>
+                  <ATT name="IsMultipleInstance">false</ATT>
+                  <ATT name="IsCompensation">false</ATT>
+                  <ATT name="Name"><![CDATA[Call Behavior1]]></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES></DEPENDENCIES>
+              </OBJECT>
+            </COMP>
+          </DEPENDENCIES>
+        </OBJECT>
+        <OBJECT>
+          <ID name="Partition1" mc="ActivityPartition" uid="90ea610c-48f0-47cd-b5cf-a503c8a4fef6"/>
+          <PID name="Activity" mc="Activity" uid="2edd8f17-27ed-4827-84c1-2fcd9831c0b6"/>
+          <ATTRIBUTES>
+            <ATT name="IsDimension">false</ATT>
+            <ATT name="IsExternal">false</ATT>
+            <ATT name="Name"><![CDATA[Partition1]]></ATT>
+            <ATT name="status">1970354901745664</ATT>
+          </ATTRIBUTES>
+          <DEPENDENCIES>
+            <COMP relation="ContainedNode">
+              <OBJECT>
+                <ID name="Activity Final Node" mc="ActivityFinalNode" uid="fb97800c-bf44-4410-867b-74f88ecefc21"/>
+                <PID name="Activity" mc="Activity" uid="2edd8f17-27ed-4827-84c1-2fcd9831c0b6"/>
+                <ATTRIBUTES>
+                  <ATT name="Name"><![CDATA[Activity Final Node]]></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES></DEPENDENCIES>
+              </OBJECT>
+              <OBJECT>
+                <ID name="Action" mc="OpaqueAction" uid="dba1ffab-ed34-4763-9f1a-076bd77b9141"/>
+                <PID name="Activity" mc="Activity" uid="2edd8f17-27ed-4827-84c1-2fcd9831c0b6"/>
+                <ATTRIBUTES>
+                  <ATT name="Body"><![CDATA[dfdfafadfasdfasdf
+]]></ATT>
+                  <ATT name="IsMultipleInstance">false</ATT>
+                  <ATT name="IsCompensation">false</ATT>
+                  <ATT name="Name"><![CDATA[Action]]></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES></DEPENDENCIES>
+              </OBJECT>
+              <OBJECT>
+                <ID name="Decision-Merge" mc="DecisionMergeNode" uid="1958c6fb-1e83-4b4c-8520-ebc4e4b0c6ce"/>
+                <PID name="Activity" mc="Activity" uid="2edd8f17-27ed-4827-84c1-2fcd9831c0b6"/>
+                <ATTRIBUTES>
+                  <ATT name="DecisionKind">ExclusiveDecision</ATT>
+                  <ATT name="DecisionInputBehavior"></ATT>
+                  <ATT name="Name"><![CDATA[Decision-Merge]]></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES></DEPENDENCIES>
+              </OBJECT>
+              <OBJECT>
+                <ID name="Conditional Node" mc="ConditionalNode" uid="9f16af9b-f9e2-46ae-8b1c-4621e0a8845d"/>
+                <PID name="Activity" mc="Activity" uid="2edd8f17-27ed-4827-84c1-2fcd9831c0b6"/>
+                <ATTRIBUTES>
+                  <ATT name="IsDeterminate">false</ATT>
+                  <ATT name="IsAssured">false</ATT>
+                  <ATT name="MustIsolate">false</ATT>
+                  <ATT name="IsMultipleInstance">false</ATT>
+                  <ATT name="IsCompensation">false</ATT>
+                  <ATT name="Name"><![CDATA[Conditional Node]]></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES>
+                  <COMP relation="OwnedClause">
+                    <OBJECT>
+                      <ID name="Clause" mc="Clause" uid="f135d989-82aa-4019-89de-d8b9c65afe0b"/>
+                      <PID name="Activity" mc="Activity" uid="2edd8f17-27ed-4827-84c1-2fcd9831c0b6"/>
+                      <ATTRIBUTES>
+                        <ATT name="Test"></ATT>
+                        <ATT name="Name"><![CDATA[Clause]]></ATT>
+                        <ATT name="status">1970354901745664</ATT>
+                      </ATTRIBUTES>
+                      <DEPENDENCIES></DEPENDENCIES>
+                    </OBJECT>
+                  </COMP>
+                </DEPENDENCIES>
+              </OBJECT>
+              <OBJECT>
+                <ID name="Fork/Join" mc="ForkJoinNode" uid="9619ffa8-7f8e-4147-be99-205e09badadd"/>
+                <PID name="Activity" mc="Activity" uid="2edd8f17-27ed-4827-84c1-2fcd9831c0b6"/>
+                <ATTRIBUTES>
+                  <ATT name="IsCombineDuplicate">true</ATT>
+                  <ATT name="JoinSpec"><![CDATA[and]]></ATT>
+                  <ATT name="Name"><![CDATA[Fork/Join]]></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES></DEPENDENCIES>
+              </OBJECT>
+            </COMP>
+          </DEPENDENCIES>
+        </OBJECT>
+        <OBJECT>
+          <ID name="Interruptible Region" mc="InterruptibleActivityRegion" uid="8ad042d8-d27e-42ee-a799-d0285789cdb2"/>
+          <PID name="Activity" mc="Activity" uid="2edd8f17-27ed-4827-84c1-2fcd9831c0b6"/>
+          <ATTRIBUTES>
+            <ATT name="Name"><![CDATA[Interruptible Region]]></ATT>
+            <ATT name="status">1970354901745664</ATT>
+          </ATTRIBUTES>
+          <DEPENDENCIES></DEPENDENCIES>
+        </OBJECT>
+      </COMP>
+      <COMP relation="OwnedCollaboration">
+        <OBJECT>
+          <ID name="locals" mc="Collaboration" uid="421e662d-5d0d-4caf-92d2-6e97666b4c16"/>
+          <PID name="Activity" mc="Activity" uid="2edd8f17-27ed-4827-84c1-2fcd9831c0b6"/>
+          <ATTRIBUTES>
+            <ATT name="IsConcurrent">false</ATT>
+            <ATT name="IsAbstract">false</ATT>
+            <ATT name="IsLeaf">false</ATT>
+            <ATT name="IsRoot">false</ATT>
+            <ATT name="Visibility">Public</ATT>
+            <ATT name="Name"><![CDATA[locals]]></ATT>
+            <ATT name="status">1970354901745664</ATT>
+          </ATTRIBUTES>
+          <DEPENDENCIES>
+            <COMP relation="Declared">
+              <OBJECT>
+                <ID name="" mc="BindableInstance" uid="88dee955-7d27-48a5-b930-8f5dc931df62"/>
+                <PID name="Activity" mc="Activity" uid="2edd8f17-27ed-4827-84c1-2fcd9831c0b6"/>
+                <ATTRIBUTES>
+                  <ATT name="IsConstant">false</ATT>
+                  <ATT name="MultiplicityMin"><![CDATA[1]]></ATT>
+                  <ATT name="MultiplicityMax"><![CDATA[1]]></ATT>
+                  <ATT name="Value"></ATT>
+                  <ATT name="Name"></ATT>
+                  <ATT name="status">1970354901745664</ATT>
+                </ATTRIBUTES>
+                <DEPENDENCIES></DEPENDENCIES>
+              </OBJECT>
+            </COMP>
+          </DEPENDENCIES>
+        </OBJECT>
+      </COMP>
+      <COMP relation="Product">
+        <COMPID name="Activity Activity diagram" mc="ActivityDiagram" uid="a25b92a5-9b55-47da-8e02-4043f772cd73"/>
+      </COMP>
+    </DEPENDENCIES>
+  </OBJECT>
+</EXT>
