@@ -11,9 +11,12 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.annotation.ManagedBean;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
+    
+import javax.inject.Named;
+import javax.faces.bean.ViewScoped;
 
 /**
  *
@@ -29,11 +32,11 @@ public class EventController {
 
     private Event event;
     
-    private Event selectedEvent = new Event();
+    private Event selectedEvent;
 
     private Date currentDate;
 
-    private List<Event> eventlist = new ArrayList<Event>();
+    private List<Event> eventlist;
 
 
     public Date getCurrentDate() {
@@ -74,16 +77,21 @@ public class EventController {
     public void setSelectedEvent(Event selectedEvent) {
         this.selectedEvent = selectedEvent;
     }
-
+    //@PostConstruct
     public String create() {
         em.save(event);
         eventlist = em.findEvents();
         return "view";
     }
     
-    public String delete(Event event){
+    @PostConstruct
+    public void findEvents(){
+        eventlist = em.findEvents();
+    }
+    
+    public String delete(int id){
         System.out.println("DELETE**************************");
-        em.deleteEvent(event);
+        em.deleteEvent(id);
         return "index";
     }
 }
