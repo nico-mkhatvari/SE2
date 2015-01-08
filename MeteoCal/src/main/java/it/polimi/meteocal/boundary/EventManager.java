@@ -22,7 +22,7 @@ public class EventManager extends AbstractFacade<Event> {
     @PersistenceContext(unitName = "it.polimi_MeteoCal_war_1.0-SNAPSHOTPU")
     private EntityManager em;
     
-
+    
     @Override
     protected EntityManager getEntityManager() {
         return em;
@@ -41,7 +41,10 @@ public class EventManager extends AbstractFacade<Event> {
         return query.getResultList();
     }
 
-    public void deleteEvent(Event event) {     
-        em.remove(event);
+    public void deleteEvent(int id) {     
+        
+        Event e = em.find(Event.class, id);
+        em.remove(e);
+        
     }
 }
