@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Event List</title>
+    </h:head>
+    <h:body>
+        <h:form>
+            <p:dataTable id="eventlist" var="event" value="#{eventBean.eventlist}" selection="#{eventBean.selectedEvent}" rowKey="#{event.id}" scrollable="true" scrollHeight="200" style="width:500px;">
+                <f:facet name="header">
+                    Event List
+                </f:facet>
+                <p:column selectionMode="single" style="width:16px;text-align:center"/>
+                <p:column headerText="ID">
+                    <h:outputText value="#{event.id}">
+                    </h:outputText>
+                </p:column>
+                <p:column headerText="Date">
+                    <h:outputText value="#{event.date}">
+                        <f:convertDateTime pattern="yyyy-MM-dd" />
+                    </h:outputText>
+                </p:column>
+                <f:facet name="footer">
+
+                    <p:commandButton process="eventlist" action="#{eventBean.delete(eventBean.event)}" value="#{eventBean.event}" ajax="true" >
+                         
+                    </p:commandButton>
+                </f:facet>
+            </p:dataTable>
+        </h:form>
+    </h:body>
+</html>
