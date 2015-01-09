@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package it.polimi.meteocal.boundary;
+package it.polimi.meteocal.control;
 
 import java.util.List;
 import javax.persistence.EntityManager;

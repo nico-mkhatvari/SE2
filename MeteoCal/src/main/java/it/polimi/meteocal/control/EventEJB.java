@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package it.polimi.meteocal.boundary;
+package it.polimi.meteocal.control;
 
 import it.polimi.meteocal.entity.Event;
 import java.util.List;
@@ -12,23 +12,18 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
-/**
- *
- * @author jiasheng
- */
+
 @Stateless
-public class EventManager extends AbstractFacade<Event> {
+public class EventEJB extends AbstractFacade<Event> {
     
     @PersistenceContext(unitName = "it.polimi_MeteoCal_war_1.0-SNAPSHOTPU")
     private EntityManager em;
     
-    
-    @Override
     protected EntityManager getEntityManager() {
         return em;
     }
 
-    public EventManager() {
+    public EventEJB() {
         super(Event.class);
     }
 

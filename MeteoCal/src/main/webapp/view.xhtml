@@ -23,12 +23,10 @@
                         <f:convertDateTime pattern="yyyy-MM-dd" />
                     </h:outputText>
                 </p:column>
-                <p:column>
-
-                    <p:commandButton process="eventlist" actionListener="#{eventBean.delete(event.id)}" value="#{eventBean.event.id}" ajax="false" >
-                        
+                <f:facet name = "footer">
+                    <p:commandButton process="eventlist" action="#{eventBean.delete(eventBean.selectedEvent.id)}" value="Delete" ajax="false" >  
                     </p:commandButton>
-                </p:column>
+                </f:facet>
             </p:dataTable>
         </h:form>
     </h:body>

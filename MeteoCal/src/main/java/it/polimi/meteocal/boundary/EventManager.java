@@ -3,20 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package it.polimi.it.meteocal.control;
+package it.polimi.meteocal.boundary;
 
-import it.polimi.meteocal.boundary.EventManager;
+import it.polimi.meteocal.control.EventEJB;
 import it.polimi.meteocal.entity.Event;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.annotation.ManagedBean;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.enterprise.context.RequestScoped;
-    
+import javax.enterprise.context.RequestScoped;   
 import javax.inject.Named;
-import javax.faces.bean.ViewScoped;
+
 
 /**
  *
@@ -25,10 +23,10 @@ import javax.faces.bean.ViewScoped;
 @ManagedBean
 @Named(value = "eventBean")
 @RequestScoped
-public class EventController {
+public class EventManager{
 
     @EJB
-    private EventManager em;
+    private EventEJB eventEjb;
 
     private Event event;
     
@@ -46,14 +44,13 @@ public class EventController {
         return currentDate;
     }
 
-    public EventController() {
+    public EventManager() {
     }
 
     public Event getEvent() {
         if (event == null) {
             event = new Event();
         }
-        System.out.println("getEvent|||||||||||||||||||||||||||||||||||");
         return event;
     }
 
@@ -79,19 +76,19 @@ public class EventController {
     }
     //@PostConstruct
     public String create() {
-        em.save(event);
-        eventlist = em.findEvents();
+        eventEjb.save(event);
+        eventlist = eventEjb.findEvents();
         return "view";
     }
     
     @PostConstruct
     public void findEvents(){
-        eventlist = em.findEvents();
+        eventlist = eventEjb.findEvents();
     }
     
     public String delete(int id){
-        System.out.println("DELETE**************************");
-        em.deleteEvent(id);
+       
+        eventEjb.deleteEvent(id);
         return "index";
     }
 }
