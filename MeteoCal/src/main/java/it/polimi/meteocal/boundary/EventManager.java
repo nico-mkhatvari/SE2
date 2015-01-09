@@ -3,48 +3,95 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package it.polimi.meteocal.boundary;
+package it.polimi.it.meteocal.control;
 
+import it.polimi.meteocal.boundary.EventManager;
 import it.polimi.meteocal.entity.Event;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
-import javax.ejb.Stateless;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
+import javax.annotation.ManagedBean;
+import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
+import javax.enterprise.context.RequestScoped;
+    
+import javax.inject.Named;
+import javax.faces.bean.ViewScoped;
 
 /**
  *
  * @author jiasheng
  */
-@Stateless
-public class EventManager extends AbstractFacade<Event> {
+@ManagedBean
+@Named(value = "eventBean")
+@RequestScoped
+public class EventController {
+
+    @EJB
+    private EventManager em;
+
+    private Event event;
     
-    @PersistenceContext(unitName = "it.polimi_MeteoCal_war_1.0-SNAPSHOTPU")
-    private EntityManager em;
-    
-    
-    @Override
-    protected EntityManager getEntityManager() {
-        return em;
+    private Event selectedEvent;
+
+    private Date currentDate;
+
+    private List<Event> eventlist;
+
+
+    public Date getCurrentDate() {
+        if (currentDate == null) {
+            currentDate = new Date();
+        }
+        return currentDate;
     }
 
-    public EventManager() {
-        super(Event.class);
+    public EventController() {
     }
 
-    public void save(Event event) {
-        em.persist(event);
+    public Event getEvent() {
+        if (event == null) {
+            event = new Event();
+        }
+        System.out.println("getEvent|||||||||||||||||||||||||||||||||||");
+        return event;
     }
 
-    public List<Event> findEvents() {
-        TypedQuery<Event> query = em.createNamedQuery("Event.findAll", Event.class);
-        return query.getResultList();
+    public void setEvent(Event event) {
+        this.event = event;
     }
 
-    public void deleteEvent(int id) {     
+    public List<Event> getEventlist() {
+        return eventlist;
+    }
+
+    public void setEventlist(List<Event> eventlist) {
+        this.eventlist = eventlist;
+    }
+
+    public Event getSelectedEvent() {
         
-        Event e = em.find(Event.class, id);
-        em.remove(e);
-        
+        return selectedEvent;
+    }
+
+    public void setSelectedEvent(Event selectedEvent) {
+        this.selectedEvent = selectedEvent;
+    }
+    //@PostConstruct
+    public String create() {
+        em.save(event);
+        eventlist = em.findEvents();
+        return "view";
+    }
+    
+    @PostConstruct
+    public void findEvents(){
+        eventlist = em.findEvents();
+    }
+    
+    public String delete(int id){
+        System.out.println("DELETE**************************");
+        em.deleteEvent(id);
+        return "index";
     }
 }
