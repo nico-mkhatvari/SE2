@@ -7,6 +7,9 @@ package it.polimi.meteocal.boundary;
 
 import it.polimi.meteocal.control.EventEJB;
 import it.polimi.meteocal.entity.Event;
+import it.polimi.registration.business.security.entity.User;
+import it.polimi.registration.gui.security.UserBean;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.annotation.ManagedBean;
@@ -31,11 +34,13 @@ public class EventManager {
     private Event event;
     private Event selectedEvent;
     private Date currentDate;
-    private List<Event> eventlist;    
-   // private Boolean notPrima = false;   
+    private List<Event> eventlist;
     private static int passedParameter;
+    private List<User> userlist;
+    private final UserBean ub;
 
     public EventManager() {
+        this.ub = new UserBean();
     }
 
     public Event getEvent() {
@@ -50,11 +55,22 @@ public class EventManager {
     }
 
     public List<Event> getEventlist() {
+        if (eventlist == null) {
+            eventlist = new ArrayList<>();
+        }
         return eventlist;
     }
 
     public void setEventlist(List<Event> eventlist) {
         this.eventlist = eventlist;
+    }
+
+    public List<User> getUserlist() {
+        return userlist;
+    }
+
+    public void setUserlist(List<User> userlist) {
+        this.userlist = userlist;
     }
 
     public Event getSelectedEvent() {
@@ -66,12 +82,9 @@ public class EventManager {
     }
 
     public void loadEvent() {
-       // if (notPrima == false) {
-            FacesContext facesContext = FacesContext.getCurrentInstance();
-            passedParameter = Integer.parseInt((facesContext.getExternalContext().getRequestParameterMap().get("id")));
-            selectedEvent = eventEjb.findEvent(passedParameter);
-       //     notPrima = true;
-      //  }
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        passedParameter = Integer.parseInt((facesContext.getExternalContext().getRequestParameterMap().get("id")));
+        selectedEvent = eventEjb.findEvent(passedParameter);
     }
 
     public Date getCurrentDate() {
@@ -82,9 +95,12 @@ public class EventManager {
     }
 
     public String create() {
+        if (event.getDate() == null){
+            event.setDate(new Date());
+        }
         eventEjb.save(event);
         eventlist = eventEjb.findEvents();
-        return "view";
+        return ub.invite(event.getId());
     }
 
     @PostConstruct
@@ -112,4 +128,5 @@ public class EventManager {
         eventlist = eventEjb.findEvents();
         return "view";
     }
+
 }

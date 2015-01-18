@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package it.polimi.meteocal.boundary;
+package it.polimi.meteocal.control;
 
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -22,7 +22,7 @@ public abstract class AbstractFacade<T> {
     protected abstract EntityManager getEntityManager();
 
     public void create(T entity) {
-        getEntityManager().persist(entity);
+            getEntityManager().persist(entity);
     }
 
     public void edit(T entity) {

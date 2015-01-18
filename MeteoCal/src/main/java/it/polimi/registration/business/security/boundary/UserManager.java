@@ -8,10 +8,12 @@ package it.polimi.registration.business.security.boundary;
 import it.polimi.registration.business.security.entity.Group;
 import it.polimi.registration.business.security.entity.User;
 import java.security.Principal;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -20,14 +22,18 @@ import javax.persistence.PersistenceContext;
 @Stateless
 public class UserManager {
 
-    @PersistenceContext
+    @PersistenceContext(unitName = "it.polimi_MeteoCal_war_1.0-SNAPSHOTPU")
     EntityManager em;
     
     @Inject
     Principal principal;
+    
+    public User findUser(String email){
+        return em.find(User.class, email);
+    }
 
     public void save(User user) {
-        user.setGroupName(Group.USERS);
+        user.setGroupname(Group.USERS);
         em.persist(user);
     }
 
@@ -39,4 +45,8 @@ public class UserManager {
         return em.find(User.class, principal.getName());
     }
     
+    public List<User> findUsers(){
+        TypedQuery<User> query = em.createNamedQuery("USERS.findAll", User.class);
+        return query.getResultList();
+    }
 }

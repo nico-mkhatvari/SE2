@@ -24,6 +24,7 @@
                     </h:outputText>
                 </p:column>
                 <f:facet name="footer">
+                    <p:commandButton action="index" value="Create" />
                     <p:commandButton process="eventlist" action="#{eventBean.delete(eventBean.selectedEvent.id)}" value="Delete" ajax="false" />   
                     <p:commandButton process="eventlist" action="#{eventBean.editPage(eventBean.selectedEvent.id)}" value="Edit" ajax="false" />   
                 </f:facet>
