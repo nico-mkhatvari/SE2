@@ -1,0 +1,98 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Calendar</title>
+    </h:head>
+    <h:body>
+        <h:form>
+            <p:schedule id="schedule" value="#{calendarBean.model}"  draggable="false" resizable="false" view="month" rightHeaderTemplate="null" timeZone="GMT+1" widgetVar="myschedule">
+                <p:ajax event="dateSelect" listener="#{calendarBean.onDateSelect}" update="eventDetails" oncomplete="PF('eventDialog').show();" />
+                <p:ajax event="eventSelect" listener="#{calendarBean.onEventSelect}" update="eventDetails" oncomplete="PF('eventDialog').show();"/>
+            </p:schedule>
+            <p:dialog widgetVar="eventDialog" header="Event Details" showEffect="clip" hideEffect="clip" >
+                <h:panelGrid id="eventDetails">
+                    <p:row>
+                        <h:outputLabel for="title" value="Title:" />
+                        <h:inputText id="title" value="#{calendarBean.scheduleEvent.title}" readonly="#{calendarBean.notOrganizer}" required="true" requiredMessage="required field"/>
+                    </p:row>
+                    <p:row>
+                        <h:outputLabel for="description" value="Description:" />
+                        <h:inputTextarea id="description" value="#{calendarBean.scheduleEvent.description}" readonly="#{calendarBean.notOrganizer}"/>
+                    </p:row>
+                    <p:row>
+                        <h:outputLabel for="from" value="From:" />
+                        <p:inputMask id="from" value="#{calendarBean.scheduleEvent.startDate}" mask="9999-99-99 99:99" readonly="#{calendarBean.notOrganizer}" required="true" requiredMessage="required field">
+                            <f:convertDateTime pattern="yyyy-MM-dd HH:mm" timeZone="GMT+1"/>
+                        </p:inputMask>
+                    </p:row>
+                    <p:row>
+                        <h:outputLabel for="to" value="To:" />
+                        <p:inputMask id="to" value="#{calendarBean.scheduleEvent.endDate}" mask="9999-99-99 99:99" readonly="#{calendarBean.notOrganizer}">
+                            <f:convertDateTime pattern="yyyy-MM-dd HH:mm" timeZone="GMT+1"/>
+                        </p:inputMask>
+                    </p:row>
+                    <p:row>
+                        <h:outputLabel for="outdoor" value="Outdoor/Indoor:" />
+                        <p:selectOneRadio id="outdoor" value="#{calendarBean.scheduleEvent.outdoor}" disabled="#{calendarBean.notOrganizer}" required="true" requiredMessage="required field">
+                            <f:selectItem itemLabel="outdoor" itemValue="#{true}"/>
+                            <f:selectItem itemLabel="indoor" itemValue="#{false}"/>
+                        </p:selectOneRadio>
+                    </p:row>
+                    <p:row>
+                        <h:outputLabel for="privacy" value="Privacy:" />
+                        <p:selectOneRadio id="privacy" value="#{calendarBean.scheduleEvent.privacy}" disabled="#{calendarBean.notOrganizer}" required="true" requiredMessage="required field">
+                            <f:selectItem itemLabel="public" itemValue="#{true}"/>
+                            <f:selectItem itemLabel="private" itemValue="#{false}"/>
+                        </p:selectOneRadio>
+                    </p:row>
+                    <p:row>
+                        <h:outputLabel for="city" value="City:" />
+                        <h:inputText id="city" value="#{calendarBean.scheduleEvent.city}" readonly="#{calendarBean.notOrganizer}" required="true" requiredMessage="required field"/>
+                    </p:row>
+                    <p:row>
+                        <h:outputLabel for="address" value="Address:" />
+                        <h:inputText id="address" value="#{calendarBean.scheduleEvent.address}" readonly="#{calendarBean.notOrganizer}"/>
+                    </p:row>
+                    <p:row>
+                        <p:dataTable var="user" value="#{invitationBean.invitationlist}" selection="#{calendarBean.scheduleEvent.participationlist}" rowKey="#{user.email}" disabledSelection="#{calendarBean.notOrganizer}" paginator="true" rows="3" style="width:500px; height: 220px">
+                            <f:facet name="header">
+                                Invitation List
+                            </f:facet>
+                            <p:column selectionMode="multiple" style="width:16px; text-align:center" />
+                            <p:column headerText="Email">
+                                <h:outputText value="#{user.email}" />
+                            </p:column>
+                            <p:column headerText="Name">
+                                <h:outputText value="#{user.name}" />
+                            </p:column>
+                        </p:dataTable>
+                    </p:row>
+                    <p:row>
+                        <p:commandButton value="Save" actionListener="#{calendarBean.addEvent}" validateClient="true"
+                                         oncomplete="PF('myschedule').update();PF('eventDialog').hide();" disabled="#{calendarBean.notOrganizer}"/>
+                        <p:commandButton value="Delete" actionListener="#{calendarBean.deleteEvent}"  validateClient="true"
+                                         oncomplete="PF('myschedule').update();PF('eventDialog').hide();" disabled="#{calendarBean.notOrganizer}"/>
+                    </p:row>
+                </h:panelGrid>
+            </p:dialog>
+        </h:form>
+        <style type="text/css">
+            .value {
+                width: 1000px;
+            }
+            .fc-today{
+                background-color: #FAFAFA;
+            }
+            .ui-widget input{
+                margin-left: 1em;
+            }
+            .ui-widget textarea{
+                margin-left: 1em;
+            }
+        </style>
+    </h:body>
+</html>

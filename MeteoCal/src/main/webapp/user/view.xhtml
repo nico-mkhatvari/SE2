@@ -23,9 +23,16 @@
                         <f:convertDateTime pattern="yyyy-MM-dd" />
                     </h:outputText>
                 </p:column>
+<<<<<<< HEAD:MeteoCal/src/main/webapp/view.xhtml
                 <f:facet name = "footer">
                     <p:commandButton process="eventlist" action="#{eventBean.delete(eventBean.selectedEvent.id)}" value="Delete" ajax="false" >  
                     </p:commandButton>
+=======
+                <f:facet name="footer">
+                    <p:commandButton action="index" value="Create" />
+                    <p:commandButton process="eventlist" action="#{eventBean.delete(eventBean.selectedEvent.id)}" value="Delete" ajax="false" />   
+                    <p:commandButton process="eventlist" action="#{eventBean.editPage(eventBean.selectedEvent.id)}" value="Edit" ajax="false" />   
+>>>>>>> 868fb28ad4de413eb37772e49239dc410cf43e9b:MeteoCal/src/main/webapp/user/view.xhtml
                 </f:facet>
             </p:dataTable>
         </h:form>

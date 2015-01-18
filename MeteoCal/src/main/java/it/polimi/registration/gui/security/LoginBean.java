@@ -7,6 +7,7 @@ package it.polimi.registration.gui.security;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.annotation.ManagedBean;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
@@ -19,7 +20,8 @@ import javax.servlet.http.HttpServletRequest;
  *
  * @author miglie
  */
-@Named
+@ManagedBean
+@Named (value = "loginBean")
 @RequestScoped
 public class LoginBean {
     
@@ -54,7 +56,7 @@ public class LoginBean {
         HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
         try {
             request.login(this.username, this.password);
-            return "/user/home";
+            return "/user/index";
         } catch (ServletException e) {
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Login Failed","Login Failed"));
             logger.log(Level.SEVERE,"Login Failed");
@@ -66,6 +68,6 @@ public class LoginBean {
         HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
         request.getSession().invalidate();
         logger.log(Level.INFO, "User Logged out");
-        return "/index?faces-redirect=true";
+        return "/login?faces-redirect=true";
     }
 }
