@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pm="http://primefaces.org/mobile">
+
+   
+
+    <h:head>
+
+    </h:head>
+
+
+    <h:form>
+        <p:commandButton value="Current Weather" update="display, forecastlist" action="#{weatherContainer.currentWeather}"/>
+        <p:outputPanel id="display" style="text-align:center">
+            <p><h:outputText value="City: #{weatherContainer.weatherData.city}"/></p> 
+            <p><h:outputText value="Conditions: #{weatherContainer.weatherData.weather}"></h:outputText></p>
+            <p><h:outputText value="Tempreture: #{weatherContainer.weatherData.temp}"></h:outputText></p>
+            <p><h:outputText value="Date: #{weatherContainer.weatherData.date}"></h:outputText></p>
+        </p:outputPanel>
+    
+        
+        <p:dataTable id="forecastlist" var="forecast"  value="#{weatherContainer.weatherDlist}">
+                
+                <p:column headerText="City">
+                    <h:outputText value="#{forecast.city}"/>
+                </p:column>
+                <p:column headerText="Date">
+                    <h:outputText value="#{forecast.date}"/>
+                </p:column>
+                <p:column headerText="Description">
+                    <h:outputText value="#{forecast.weather}"/>
+                </p:column>
+                <p:column headerText="Temperature">
+                    <h:outputText value="#{forecast.temp}"/>
+                </p:column>
+                
+            </p:dataTable>
+        
+    </h:form>
+
+
+
+
+</html>
