@@ -7,27 +7,27 @@ package it.polimi.meteocal.boundary;
 
 import it.polimi.meteocal.control.EventEJB;
 import it.polimi.meteocal.entity.Event;
-<<<<<<< HEAD
-=======
+
+
 import it.polimi.registration.business.security.entity.User;
 import it.polimi.registration.gui.security.UserBean;
 import java.util.ArrayList;
->>>>>>> 868fb28ad4de413eb37772e49239dc410cf43e9b
+
 import java.util.Date;
 import java.util.List;
 import javax.annotation.ManagedBean;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-<<<<<<< HEAD
+
 import javax.enterprise.context.RequestScoped;   
 import javax.inject.Named;
 
-=======
+
 import javax.ejb.EJBException;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
->>>>>>> 868fb28ad4de413eb37772e49239dc410cf43e9b
+
 
 /**
  *
@@ -36,75 +36,7 @@ import javax.inject.Named;
 @ManagedBean
 @Named(value = "eventBean")
 @RequestScoped
-<<<<<<< HEAD
-public class EventManager{
 
-    @EJB
-    private EventEJB eventEjb;
-
-    private Event event;
-    
-    private Event selectedEvent;
-
-    private Date currentDate;
-
-    private List<Event> eventlist;
-
-
-    public Date getCurrentDate() {
-        if (currentDate == null) {
-            currentDate = new Date();
-        }
-        return currentDate;
-    }
-
-    public EventManager() {
-    }
-
-    public Event getEvent() {
-        if (event == null) {
-            event = new Event();
-        }
-        return event;
-    }
-
-    public void setEvent(Event event) {
-        this.event = event;
-    }
-
-    public List<Event> getEventlist() {
-        return eventlist;
-    }
-
-    public void setEventlist(List<Event> eventlist) {
-        this.eventlist = eventlist;
-    }
-
-    public Event getSelectedEvent() {
-        
-        return selectedEvent;
-    }
-
-    public void setSelectedEvent(Event selectedEvent) {
-        this.selectedEvent = selectedEvent;
-    }
-    //@PostConstruct
-    public String create() {
-        eventEjb.save(event);
-        eventlist = eventEjb.findEvents();
-        return "view";
-    }
-    
-    @PostConstruct
-    public void findEvents(){
-        eventlist = eventEjb.findEvents();
-    }
-    
-    public String delete(int id){
-       
-        eventEjb.deleteEvent(id);
-        return "index";
-=======
 public class EventManager {
 
     @EJB
@@ -163,7 +95,6 @@ public class EventManager {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         passedParameter = Integer.parseInt((facesContext.getExternalContext().getRequestParameterMap().get("id")));
         selectedEvent = eventEjb.findEvent(passedParameter);
->>>>>>> 868fb28ad4de413eb37772e49239dc410cf43e9b
     }
 
     public Date getCurrentDate() {
