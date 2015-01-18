@@ -128,6 +128,7 @@ public class CalendarManager implements Serializable {
         if (scheduleEvent.getId() == null) {
         } else {
             int eventid = scheduleEvent.getEventId();
+            invitationListEJB.remove(eventid);
             eventsEjb.deleteEvent(eventid); // invitationlist is deleted on cascade
             model.updateEvent(scheduleEvent);
         }
