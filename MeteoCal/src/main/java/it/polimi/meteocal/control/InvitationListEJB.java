@@ -48,14 +48,14 @@ public class InvitationListEJB extends AbstractFacade<InvitationList> {
         return list;
     }
 
-    public List<InvitationList> findUserByEventid(int eventid, User user) {
-        List<InvitationList> list = em.createNamedQuery("findUserWithEventId").setParameter("eventid", eventid).setParameter("user", user).getResultList();
+    public List<InvitationList> findUserByEventid(int eventid, String usermail) {
+        List<InvitationList> list = em.createNamedQuery("findUserWithEventId").setParameter("eventid", eventid).setParameter("user", usermail).getResultList();
         return list;
     }
 
     public void save(Events event, List<User> invitedlist) {
         User eventOrganizer = em.find(User.class, principal.getName()); //logged user
-        if (findUserByEventid(event.getId(), eventOrganizer) == null) { //if it's a new event
+        if (findUserByEventid(event.getId(), eventOrganizer.getEmail()) == null) { //if it's a new event
             InvitationList myInvitationlist = new InvitationList(eventOrganizer, event);
             myInvitationlist.setParticipate(true);
             InvitationListPK mypk = new InvitationListPK(eventOrganizer.getEmail(), event.getId());
@@ -66,8 +66,8 @@ public class InvitationListEJB extends AbstractFacade<InvitationList> {
         } else {
             for (int i = 0; i < invitedlist.size(); i++) {
                 User invited = invitedlist.get(i);
-                List<InvitationList> tempList = findUserByEventid(event.getId(), invited);
-                if (tempList == null) { //if user is never been invited
+                List<InvitationList> tempList = findUserByEventid(event.getId(), invited.getEmail());
+                if (tempList.isEmpty()) { //if user is never been invited
                     InvitationList invitationlist = new InvitationList();
                     invitationlist.setUser1(invited);
                     invitationlist.setEvents(event);
