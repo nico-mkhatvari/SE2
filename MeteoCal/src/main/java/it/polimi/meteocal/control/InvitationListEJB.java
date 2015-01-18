@@ -47,7 +47,17 @@ public class InvitationListEJB extends AbstractFacade<InvitationList> {
         List<InvitationList> list = em.createNamedQuery("findAllParticipatingListWithEventId").setParameter("eventid", eventid).setParameter("participate", true).getResultList();
         return list;
     }
-
+    
+    public List<InvitationList> findInvitationListByEmail(String usermail) {
+        List<InvitationList> list = em.createNamedQuery("findAllInvitationListWithUserEmail").setParameter("user", usermail).getResultList();
+        return list;
+    }
+    
+    public List<InvitationList> findParticipatingListByEmail(String usermail) {
+        List<InvitationList> list = em.createNamedQuery("findAllParticipatingListWithUserEmail").setParameter("user", usermail).setParameter("participate", true).getResultList();
+        return list;
+    }
+    
     public List<InvitationList> findUserByEventid(int eventid, String usermail) {
         List<InvitationList> list = em.createNamedQuery("findUserWithEventId").setParameter("eventid", eventid).setParameter("user", usermail).getResultList();
         return list;

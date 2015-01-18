@@ -29,6 +29,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "InvitationList.findAll", query = "SELECT i FROM InvitationList i"),
     @NamedQuery(name= "findAllInvitationListWithEventId", query="SELECT i FROM InvitationList i WHERE i.invitationListPK.eventid LIKE :eventid"),
+    @NamedQuery(name= "findAllInvitationListWithUserEmail", query="SELECT i FROM InvitationList i WHERE i.invitationListPK.user LIKE :user"),
+    @NamedQuery(name= "findAllParticipatingListWithUserEmail", query="SELECT i FROM InvitationList i WHERE i.invitationListPK.user LIKE :user AND i.participate LIKE :participate"),
     @NamedQuery(name= "findAllParticipatingListWithEventId", query="SELECT i FROM InvitationList i WHERE i.invitationListPK.eventid LIKE :eventid AND i.participate LIKE :participate"),
     @NamedQuery(name= "findUserWithEventId", query="SELECT i FROM InvitationList i WHERE i.invitationListPK.eventid LIKE :eventid AND i.invitationListPK.user LIKE :user"),
     @NamedQuery(name = "InvitationList.findByUser", query = "SELECT i FROM InvitationList i WHERE i.invitationListPK.user = :user"),

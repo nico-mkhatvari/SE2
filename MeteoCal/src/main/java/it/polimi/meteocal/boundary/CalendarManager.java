@@ -28,7 +28,6 @@ public class CalendarManager implements Serializable {
 
     private ScheduleModel model;
     private MyScheduleEvent scheduleEvent = new MyScheduleEvent();
-    private List<Events> eventlist;
     private Events event;
     @EJB
     private EventsEJB eventsEjb;
@@ -36,14 +35,19 @@ public class CalendarManager implements Serializable {
     private UserManager um;
     @EJB
     private InvitationListEJB invitationListEJB;
-    private List<User> invitationList;
+
 
     @PostConstruct
     public void init() {
         model = new DefaultScheduleModel();
-        eventlist = eventsEjb.findEvents();
-        for (int i = 0; i < eventlist.size(); i++) {
-            Events tempEvent = eventlist.get(i);
+        List<InvitationList> myInvitationlist = invitationListEJB.findParticipatingListByEmail(um.getLoggedUser().getEmail());
+        List<Events> myEventlist = new ArrayList<>();
+        for(int i=0; i<myInvitationlist.size(); i++){
+            InvitationList tempList = myInvitationlist.get(i);
+            myEventlist.add(tempList.getEvents());
+        }
+        for (int i=0; i<myEventlist.size(); i++) {
+            Events tempEvent = myEventlist.get(i);
             int eventId = tempEvent.getId();
             User eventOrganizer = tempEvent.getOrganizer();
             String eventName = tempEvent.getName();
@@ -128,7 +132,6 @@ public class CalendarManager implements Serializable {
         if (scheduleEvent.getId() == null) {
         } else {
             int eventid = scheduleEvent.getEventId();
-            invitationListEJB.remove(eventid);
             eventsEjb.deleteEvent(eventid); // invitationlist is deleted on cascade
             model.updateEvent(scheduleEvent);
         }
