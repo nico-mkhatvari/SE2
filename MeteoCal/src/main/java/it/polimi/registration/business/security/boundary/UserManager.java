@@ -24,13 +24,9 @@ public class UserManager {
 
     @PersistenceContext(unitName = "it.polimi_MeteoCal_war_1.0-SNAPSHOTPU")
     EntityManager em;
-    
+
     @Inject
     Principal principal;
-    
-    public User findUser(String email){
-        return em.find(User.class, email);
-    }
 
     public void save(User user) {
         user.setGroupname(Group.USERS);
@@ -44,9 +40,25 @@ public class UserManager {
     public User getLoggedUser() {
         return em.find(User.class, principal.getName());
     }
-    
-    public List<User> findUsers(){
+
+    public User findUser(String email) {
+        return em.find(User.class, email);
+    }
+
+    public List<User> findUsers() {
         TypedQuery<User> query = em.createNamedQuery("USERS.findAll", User.class);
         return query.getResultList();
+    }
+
+    public void setPublicUser() {
+        User user = getLoggedUser();
+        user.setPrivacy(false);
+        em.merge(user);
+    }
+
+    public void setPrivateUser() {
+        User user = getLoggedUser();
+        user.setPrivacy(true);
+        em.merge(user);
     }
 }

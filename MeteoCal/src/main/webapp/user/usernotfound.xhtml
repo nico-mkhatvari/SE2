@@ -5,11 +5,11 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
-        <title>Seach Result</title>
+        <title>User Not Found</title>
     </h:head>
-    <h:body onload="#{userBean.loadUser()}">
+    <h:body>
         <h:form>
-            <h:outputText value="searched user's email is #{userBean.foundUser.email}" />
+            <h:outputText value="Sorry, I didn't found any user with this email: #{calendarBean.calendarOwner.email}" />
             <p:commandButton action="index" value="Go back" />
         </h:form>
     </h:body>

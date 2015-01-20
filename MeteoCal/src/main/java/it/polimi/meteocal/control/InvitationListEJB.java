@@ -22,7 +22,7 @@ import javax.persistence.PersistenceContext;
  */
 @Stateless
 public class InvitationListEJB extends AbstractFacade<InvitationList> {
-
+    
     @PersistenceContext(unitName = "it.polimi_MeteoCal_war_1.0-SNAPSHOTPU")
     private EntityManager em;
 
@@ -37,7 +37,7 @@ public class InvitationListEJB extends AbstractFacade<InvitationList> {
     public InvitationListEJB() {
         super(InvitationList.class);
     }
-
+    
     public List<InvitationList> findInvitationList(int eventid) {
         List<InvitationList> list = em.createNamedQuery("findAllInvitationListWithEventId").setParameter("eventid", eventid).getResultList();
         return list;
@@ -53,6 +53,11 @@ public class InvitationListEJB extends AbstractFacade<InvitationList> {
         return list;
     }
     
+    public List<InvitationList> findNotParticipatingListByEmail(String usermail) {
+        List<InvitationList> list = em.createNamedQuery("findAllParticipatingListWithUserEmail").setParameter("user", usermail).setParameter("participate", false).getResultList();
+        return list;
+    }
+    
     public List<InvitationList> findParticipatingListByEmail(String usermail) {
         List<InvitationList> list = em.createNamedQuery("findAllParticipatingListWithUserEmail").setParameter("user", usermail).setParameter("participate", true).getResultList();
         return list;
@@ -65,7 +70,8 @@ public class InvitationListEJB extends AbstractFacade<InvitationList> {
 
     public void save(Events event, List<User> invitedlist) {
         User eventOrganizer = em.find(User.class, principal.getName()); //logged user
-        if (findUserByEventid(event.getId(), eventOrganizer.getEmail()) == null) { //if it's a new event
+        List<InvitationList> testlist = findUserByEventid(event.getId(), eventOrganizer.getEmail());
+        if (testlist.isEmpty()) { //if it's a new event
             InvitationList myInvitationlist = new InvitationList(eventOrganizer, event);
             myInvitationlist.setParticipate(true);
             InvitationListPK mypk = new InvitationListPK(eventOrganizer.getEmail(), event.getId());
@@ -84,7 +90,7 @@ public class InvitationListEJB extends AbstractFacade<InvitationList> {
                     invitationlist.setParticipate(false); //event organizer is the only participant
                     InvitationListPK pk = new InvitationListPK(invited.getEmail(), event.getId());
                     invitationlist.setInvitationListPK(pk);
-                    em.persist(invitationlist);
+                    em.merge(invitationlist);
                 } else {
                     tempList.get(0).setParticipate(false); //get(0) because a user can be invited only once
                 }
@@ -97,5 +103,20 @@ public class InvitationListEJB extends AbstractFacade<InvitationList> {
         for (int i = 0; i < invitationlist.size(); i++) {
             em.remove(invitationlist.get(i));
         }
+    }
+    
+    public void acceptInvitation(Events e, User u) {
+        //si accetta l'invito per un dato utente e un dato evento
+        List<InvitationList> templist = findUserByEventid(e.getId(), u.getEmail());
+        InvitationList selectedInvitation = templist.get(0);
+        selectedInvitation.setParticipate(true);
+        em.merge(selectedInvitation);
+    }
+
+    public void declineInvitation(Events e, User u) {
+        //si rifiuta l'invito per un dato utente e un dato evento
+        List<InvitationList> templist = findUserByEventid(e.getId(), u.getEmail());
+        InvitationList selectedInvitation = templist.get(0);
+        em.remove(selectedInvitation);
     }
 }

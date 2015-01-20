@@ -11,21 +11,20 @@
         <h:form>
             <p:commandLink action="#{loginBean.logout()}" value="logout"/>
         </h:form>
+        <h:form>           
+            <h3>Choose your calendar's privacy:</h3>
+                <p:commandButton value="Public" icon="ui-icon-check" action="#{userBean.setPublic()}" ajax="false"/>
+                <p:commandButton value="Private"  icon="ui-icon-close" action="#{userBean.setPrivate()}" ajax="false"/>
+        </h:form>
         <h:form>
-            <h:panelGrid>
-                <p:calendar pattern="yyyy-MM-dd" mode="inline" mindate="#{eventBean.currentDate}" value="#{eventBean.event.date}">
-                    <f:convertDateTime pattern="yyyy-MM-dd" />
-                </p:calendar>
-            </h:panelGrid>
-            <p:commandButton  value="Create Event" action="#{eventBean.create}" ajax="false" />
-            <p:commandButton  value="View Events" action="view" ajax="false" />
             <p:commandButton  value="View Calendar" action="calendar" ajax="false" />
+            <p:commandButton  value="View Inbox" action="viewinbox" ajax="false" />
         </h:form>
         <h:form>
             <h:panelGrid>
-                <p:outputLabel for="email" value="Search User:"/>
-                <p:inputText id="email" value="#{userBean.foundUser.email}"/>
-                <p:commandButton value="Search" action="#{userBean.search(userBean.foundUser.email)}" ajax="false"/>
+                <p:outputLabel for="email" value="Search User by Email:"/>
+                <p:inputText id="email" value="#{calendarBean.calendarOwner.email}"/>
+                <p:commandButton value="Search" action="#{calendarBean.search(calendarBean.calendarOwner.email)}" ajax="false"/>
             </h:panelGrid>
         </h:form>
     </h:body>

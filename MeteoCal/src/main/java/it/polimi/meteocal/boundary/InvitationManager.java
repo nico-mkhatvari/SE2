@@ -40,5 +40,5 @@ public class InvitationManager {
     public void setInvitationlist(List<User> invitationlist) {
         this.invitationlist = invitationlist;
     }
-
+    
 }
