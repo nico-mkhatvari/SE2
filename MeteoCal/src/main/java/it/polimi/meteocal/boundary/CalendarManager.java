@@ -29,6 +29,7 @@ public class CalendarManager implements Serializable {
 
     private ScheduleModel model;
     private MyScheduleEvent scheduleEvent = new MyScheduleEvent();
+    private Date today = new Date();
     private Events event;
     private User loggedUser;
     private User calendarOwner;
@@ -126,6 +127,10 @@ public class CalendarManager implements Serializable {
 
     public void setScheduleEvent(MyScheduleEvent scheduleEvent) {
         this.scheduleEvent = scheduleEvent;
+    }
+
+    public Date getToday() {
+        return today;
     }
 
     public Events getEvents() {

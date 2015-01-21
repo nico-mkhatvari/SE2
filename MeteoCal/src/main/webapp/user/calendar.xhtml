@@ -28,15 +28,15 @@
                             </p:row>
                             <p:row>
                                 <h:outputLabel for="from" value="From:" />
-                                <p:inputMask id="from" value="#{calendarBean.scheduleEvent.startDate}" mask="9999-99-99 99:99" readonly="#{calendarBean.notOrganizer}" required="true" requiredMessage="required field">
+                                <p:calendar id="from" value="#{calendarBean.scheduleEvent.startDate}" mindate="#{calendarBean.today}" pattern="yyyy-MM-dd HH:mm" readonly="#{calendarBean.notOrganizer}" required="true" requiredMessage="required field">
                                     <f:convertDateTime pattern="yyyy-MM-dd HH:mm" timeZone="GMT+1"/>
-                                </p:inputMask>
+                                </p:calendar>
                             </p:row>
                             <p:row>
                                 <h:outputLabel for="to" value="To:" />
-                                <p:inputMask id="to" value="#{calendarBean.scheduleEvent.endDate}" mask="9999-99-99 99:99" readonly="#{calendarBean.notOrganizer}">
+                                <p:calendar id="to" value="#{calendarBean.scheduleEvent.endDate}" mindate="#{calendarBean.scheduleEvent.startDate}" pattern="yyyy-MM-dd HH:mm" readonly="#{calendarBean.notOrganizer}">
                                     <f:convertDateTime pattern="yyyy-MM-dd HH:mm" timeZone="GMT+1"/>
-                                </p:inputMask>
+                                </p:calendar>
                             </p:row>
                             <p:row>
                                 <h:outputLabel for="outdoor" value="Outdoor/Indoor:" />
@@ -82,15 +82,9 @@
                             </p:row>
                         </h:panelGrid>
                     </p:tab>
-                    <p:tab title="Forecast">
-                        <p:commandButton value="Current Weather" update="display, forecastlist" action="#{weatherContainer.currentWeather}"/>
-                        <p:outputPanel id="display" style="text-align:center">
-                            <p><h:outputText value="City: #{weatherContainer.weatherData.city}"/></p> 
-                            <p><h:outputText value="Conditions: #{weatherContainer.weatherData.weather}"></h:outputText></p>
-                            <p><h:outputText value="Tempreture: #{weatherContainer.weatherData.temp}"></h:outputText></p>
-                            <p><h:outputText value="Date: #{weatherContainer.weatherData.date}"></h:outputText></p>
-                        </p:outputPanel>
-                        <p:dataTable id="forecastlist" var="forecast"  value="#{weatherContainer.weatherDlist}">
+                    <p:tab title="Forecast" >
+                        <p:commandButton value="Current Weather" update="forecastlist" action="#{weatherBean.getWeatherDataList(calendarBean.scheduleEvent.startDate, calendarBean.scheduleEvent.endDate, calendarBean.scheduleEvent.city)}"/>
+                        <p:dataTable id="forecastlist" var="forecast"  value="#{weatherBean.weatherDataList}">
                             <p:column headerText="City">
                                 <h:outputText value="#{forecast.city}"/>
                             </p:column>

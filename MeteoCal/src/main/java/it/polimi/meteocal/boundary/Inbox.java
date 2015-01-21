@@ -39,20 +39,19 @@ public class Inbox {
     private Events selectedEvent = new Events();
     private List<InvitationList> list;
 
-
     @PostConstruct
     public void init() {
         //Inizializza la lista contente tutti gli inviti dove è presente l'utente loggato e non è già partecipante 
         onInvitationlist = invitationListEJB.findNotParticipatingListByEmail(um.getLoggedUser().getEmail());
-    }
-
-    //Estrazione di Events da InvitationList dove è presente l'utente loggato
-    public List<Events> getMyEventlist() {
-
+        
+        //Estrazione di Events da InvitationList dove è presente l'utente loggato
         for (int i = 0; i < onInvitationlist.size(); i++) {
             InvitationList tempList = onInvitationlist.get(i);
             myEventlist.add(tempList.getEvents());
         }
+    }
+
+    public List<Events> getMyEventlist() {
         return myEventlist;
     }
 
@@ -78,19 +77,22 @@ public class Inbox {
         for (int i = 0; i < list.size(); i++) {
             InvitationList tempList = list.get(i);
             User tempUser = tempList.getUser1();
-            if (!selectedEvent.getOrganizer().equals(tempUser))
+            if (!selectedEvent.getOrganizer().equals(tempUser)) {
                 userlist.add(tempList.getUser1());
+            }
         }
     }
 
     public String accept() {
         invitationListEJB.acceptInvitation(selectedEvent, um.getLoggedUser());
-        return "inbox";
+        init();
+        return "inbox?faces-redirect=true";
     }
 
     public String decline() {
         invitationListEJB.declineInvitation(selectedEvent, um.getLoggedUser());
-        return "inbox";
+        init();
+        return "inbox?faces-redirect=true";
     }
-    
+
 }
