@@ -30,6 +30,7 @@
                                 <h:outputLabel for="from" value="From:" />
                                 <p:calendar id="from" value="#{calendarBean.scheduleEvent.startDate}" mindate="#{calendarBean.today}" pattern="yyyy-MM-dd HH:mm" readonly="#{calendarBean.notOrganizer}" required="true" requiredMessage="required field">
                                     <f:convertDateTime pattern="yyyy-MM-dd HH:mm" timeZone="GMT+1"/>
+                                    <p:ajax event="dateSelect" update="to"/>
                                 </p:calendar>
                             </p:row>
                             <p:row>

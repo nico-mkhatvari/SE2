@@ -8,7 +8,7 @@
         <title>Inbox</title>
     </h:head>
     <h:body>
-        <h:form>
+        <h:form id="inboxform">
             <h3>Inbox</h3>
             <p:dataTable id="inbox" value="#{inbox.myEventlist}" var="events" selection="#{inbox.selectedEvent}" rowKey="#{events.id}">
                 <f:facet name="header">
@@ -60,8 +60,8 @@
                     <h:outputText value="#{user.email}" />
                 </p:column>
             </p:dataTable>
-            <p:commandButton action="#{inbox.accept}" value="Accept" update="inbox"/>
-            <p:commandButton action="#{inbox.decline}" value="Decline" update="inbox" />
+            <p:commandButton action="#{inbox.accept}" value="Accept" update=":inboxform:inbox" />
+            <p:commandButton action="#{inbox.decline}" value="Decline" update=":inboxform:inbox" />
             <p:commandButton action="index" value="Go Back" />
         </h:form>
     </h:body>

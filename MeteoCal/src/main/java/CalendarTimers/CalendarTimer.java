@@ -7,12 +7,10 @@ package CalendarTimers;
 
 import it.polimi.meteocal.control.EventsEJB;
 import it.polimi.meteocal.entity.Events;
-import it.polimi.meteocal.weather.MyDate;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.Schedule;
 import javax.ejb.Startup;
@@ -43,7 +41,7 @@ public class CalendarTimer {
         int i = 0;
         
        
-        List<Events> expiredEvents = em.createNamedQuery("Events.expiredEvents", Events.class).setParameter(1, mydate, TemporalType.TIMESTAMP).getResultList();
+        List<Events> expiredEvents = em.createNamedQuery("Events.expiredEvents", Events.class).setParameter("enddate", mydate, TemporalType.TIMESTAMP).getResultList();
         
                 
         while(expiredEvents.iterator().hasNext()){
