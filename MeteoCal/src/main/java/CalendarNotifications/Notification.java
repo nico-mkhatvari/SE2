@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package it.polimi.meteocal.entity;
+package CalendarNotifications;
 
+import it.polimi.meteocal.entity.Events;
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;

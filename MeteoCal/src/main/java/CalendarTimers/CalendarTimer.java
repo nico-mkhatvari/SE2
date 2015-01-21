@@ -9,10 +9,9 @@ import it.polimi.meteocal.control.EventsEJB;
 import it.polimi.meteocal.entity.Events;
 import it.polimi.meteocal.weather.MyDate;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-
-import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.Schedule;
 import javax.ejb.Startup;
@@ -34,17 +33,24 @@ public class CalendarTimer {
     EntityManager em;
     @EJB
     private EventsEJB eventEjb;
-    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-    Date mydate = new Date();
-    String date = sdf.format(mydate);
     
-    @Schedule(second = "*", minute = "*", hour = "*", persistent = false)
+    
+    Calendar addXhours(int hours){
+        
+        Calendar date = Calendar.getInstance();
+        date.add(Calendar.HOUR_OF_DAY, hours);
+        return date;
+        
+    }
+    
+    
+    @Schedule(second = "*/30", minute = "*", hour = "*", persistent = false)
     public void deleteOldEvents(){
         int i = 0;
         
        
-        List<Events> expiredEvents = em.createNamedQuery("Events.expiredEvents", Events.class).setParameter(1, mydate, TemporalType.TIMESTAMP).getResultList();
-        
+        List<Events> expiredEvents = em.createNamedQuery("Events.expiredEvents", Events.class).setParameter(1, new Date(), TemporalType.TIMESTAMP).getResultList();
+        List<Events> events24 = em.createNamedQuery("Events.expiredEvents", Events.class).setParameter(1, new Date(), TemporalType.TIMESTAMP).getResultList();
                 
         while(expiredEvents.iterator().hasNext()){
             eventEjb.deleteEvent(expiredEvents.get(i).getId()); //si può get(i++)??
