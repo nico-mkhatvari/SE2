@@ -28,6 +28,10 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "USERS.findAll", query = "SELECT u FROM USERS u"),
     @NamedQuery(name = "USERS.findByEmail", query = "SELECT u FROM USERS u WHERE u.email = :email")})
 public class User implements Serializable {
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "PUBLIC")
+    private boolean privacy;
 
     @Id
     @Pattern(regexp = "[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?",
@@ -48,10 +52,6 @@ public class User implements Serializable {
     @Size(max = 255)
     @Column(name = "PASSWORD")
     private String password;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "PRIVACY")
-    private boolean privacy;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user1")
     private Collection<InvitationList> invitationListCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "organizer")
@@ -94,13 +94,6 @@ public class User implements Serializable {
         this.password = PasswordEncrypter.encryptPassword(password);
     }
 
-    public boolean getPrivacy() {
-        return privacy;
-    }
-
-    public void setPrivacy(boolean privacy) {
-        this.privacy = privacy;
-    }
     
     @XmlTransient
     public Collection<InvitationList> getInvitationListCollection() {
@@ -143,6 +136,14 @@ public class User implements Serializable {
     @Override
     public String toString() {
         return email;
+    }
+
+    public boolean getPrivacy() {
+        return privacy;
+    }
+
+    public void setPrivacy(boolean privacy) {
+        this.privacy = privacy;
     }
 
 }

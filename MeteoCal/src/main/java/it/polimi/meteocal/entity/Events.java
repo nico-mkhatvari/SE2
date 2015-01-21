@@ -48,6 +48,12 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Events.findByCity", query = "SELECT e FROM Events e WHERE e.city = :city"),
     @NamedQuery(name = "Events.findByAddress", query = "SELECT e FROM Events e WHERE e.address = :address")})
 public class Events implements Serializable {
+    @Column(name = "OUTDOOR")
+    private Boolean outdoor;
+    @Column(name = "PUBLIC")
+    private Boolean public1;
+    @OneToMany(mappedBy = "eventid")
+    private Collection<Notification> notificationCollection;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -70,10 +76,7 @@ public class Events implements Serializable {
     @Column(name = "ENDDATE")
     @Temporal(TemporalType.TIMESTAMP)
     private Date enddate;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "OUTDOOR")
-    private boolean outdoor;
+    
     @Basic(optional = false)
     @NotNull
     @Column(name = "PUBLIC")
@@ -161,13 +164,6 @@ public class Events implements Serializable {
         this.enddate = enddate;
     }
 
-    public boolean getOutdoor() {
-        return outdoor;
-    }
-
-    public void setOutdoor(boolean outdoor) {
-        this.outdoor = outdoor;
-    }
 
     public boolean getPrivacy() {
         return privacy;
@@ -233,6 +229,31 @@ public class Events implements Serializable {
     @Override
     public String toString() {
         return "it.polimi.meteocal.entity.Events[ id=" + id + " ]";
+    }
+
+    public Boolean getOutdoor() {
+        return outdoor;
+    }
+
+    public void setOutdoor(Boolean outdoor) {
+        this.outdoor = outdoor;
+    }
+
+    public Boolean getPublic1() {
+        return public1;
+    }
+
+    public void setPublic1(Boolean public1) {
+        this.public1 = public1;
+    }
+
+    @XmlTransient
+    public Collection<Notification> getNotificationCollection() {
+        return notificationCollection;
+    }
+
+    public void setNotificationCollection(Collection<Notification> notificationCollection) {
+        this.notificationCollection = notificationCollection;
     }
     
 }
