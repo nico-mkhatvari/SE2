@@ -47,15 +47,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Events.findByPrivacy", query = "SELECT e FROM Events e WHERE e.privacy = :privacy"),
     @NamedQuery(name = "Events.findByCity", query = "SELECT e FROM Events e WHERE e.city = :city"),
     @NamedQuery(name = "Events.findByAddress", query = "SELECT e FROM Events e WHERE e.address = :address"),
-    @NamedQuery(name = "Events.expiredEvents", query = "SELECT e FROM Events e WHERE e.enddate < ?1")   })
+    @NamedQuery(name = "Events.expiredEvents", query = "SELECT e FROM Events e WHERE e.enddate < :enddate")})
 public class Events implements Serializable {
-    @Column(name = "OUTDOOR")
-    private Boolean outdoor;
-    @Column(name = "PUBLIC")
-    private Boolean public1;
-    @OneToMany(mappedBy = "eventid")
-    private Collection<Notification> notificationCollection;
-    private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
@@ -77,11 +71,14 @@ public class Events implements Serializable {
     @Column(name = "ENDDATE")
     @Temporal(TemporalType.TIMESTAMP)
     private Date enddate;
-    
     @Basic(optional = false)
     @NotNull
-    @Column(name = "PUBLIC")
+    @Column(name = "PRIVACY")
     private boolean privacy;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "OUTDOOR")
+    private boolean outdoor;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 45)
@@ -90,6 +87,9 @@ public class Events implements Serializable {
     @Size(max = 45)
     @Column(name = "ADDRESS")
     private String address;
+    @OneToMany(mappedBy = "eventid")
+    private Collection<Notification> notificationCollection;
+    private static final long serialVersionUID = 1L;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "events")
     private Collection<InvitationList> invitationListCollection;
     @JoinColumn(name = "ORGANIZER", referencedColumnName = "EMAIL")
@@ -232,21 +232,6 @@ public class Events implements Serializable {
         return "it.polimi.meteocal.entity.Events[ id=" + id + " ]";
     }
 
-    public Boolean getOutdoor() {
-        return outdoor;
-    }
-
-    public void setOutdoor(Boolean outdoor) {
-        this.outdoor = outdoor;
-    }
-
-    public Boolean getPublic1() {
-        return public1;
-    }
-
-    public void setPublic1(Boolean public1) {
-        this.public1 = public1;
-    }
 
     @XmlTransient
     public Collection<Notification> getNotificationCollection() {
@@ -256,5 +241,13 @@ public class Events implements Serializable {
     public void setNotificationCollection(Collection<Notification> notificationCollection) {
         this.notificationCollection = notificationCollection;
     }
-    
+
+    public boolean getOutdoor() {
+        return outdoor;
+    }
+
+    public void setOutdoor(boolean outdoor) {
+        this.outdoor = outdoor;
+    }
+   
 }

@@ -85,12 +85,14 @@ public class Inbox {
 
     public String accept() {
         invitationListEJB.acceptInvitation(selectedEvent, um.getLoggedUser());
+        onInvitationlist = new ArrayList<>(); //reset the list
         init();
         return "inbox?faces-redirect=true";
     }
 
     public String decline() {
         invitationListEJB.declineInvitation(selectedEvent, um.getLoggedUser());
+        onInvitationlist = new ArrayList<>(); //reset the list
         init();
         return "inbox?faces-redirect=true";
     }
