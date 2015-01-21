@@ -7,6 +7,7 @@ package it.polimi.registration.business.security.entity;
 
 import it.polimi.meteocal.entity.Events;
 import it.polimi.meteocal.entity.InvitationList;
+import it.polimi.registration.business.security.control.PasswordEncrypter;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
@@ -47,12 +48,19 @@ public class User implements Serializable {
     @Size(max = 255)
     @Column(name = "PASSWORD")
     private String password;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "PRIVACY")
+    private boolean privacy;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user1")
     private Collection<InvitationList> invitationListCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "organizer")
     private Collection<Events> eventsCollection;
 
     private static final long serialVersionUID = 1L;
+    
+    public User() {
+    }
 
     public String getName() {
         return name;
@@ -83,9 +91,17 @@ public class User implements Serializable {
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        this.password = PasswordEncrypter.encryptPassword(password);
     }
 
+    public boolean getPrivacy() {
+        return privacy;
+    }
+
+    public void setPrivacy(boolean privacy) {
+        this.privacy = privacy;
+    }
+    
     @XmlTransient
     public Collection<InvitationList> getInvitationListCollection() {
         return invitationListCollection;
@@ -126,7 +142,7 @@ public class User implements Serializable {
 
     @Override
     public String toString() {
-        return "it.polimi.registration.business.security.entity.User[ email=" + email + " ]";
+        return email;
     }
 
 }
