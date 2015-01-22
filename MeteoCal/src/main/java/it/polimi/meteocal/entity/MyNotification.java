@@ -15,6 +15,7 @@ public class MyNotification {
     
     private int notificationId;
     private int eventId;
+    private String userEmail;
     private String eventName;
     private String eventDescription;
     private Date eventStartdate;
@@ -24,9 +25,10 @@ public class MyNotification {
     private String message;
     private Date suggestedDay;
 
-    public MyNotification(int notificationId, int eventId, String eventName, String eventDescription, Date eventStartdate, Date eventEnddate, String eventCity, String eventAddress, String message) {
+    public MyNotification(int notificationId, int eventId, String userEmail, String eventName, String eventDescription, Date eventStartdate, Date eventEnddate, String eventCity, String eventAddress, String message) {
         this.notificationId = notificationId;
         this.eventId = eventId;
+        this.userEmail = userEmail;
         this.eventName = eventName;
         this.eventDescription = eventDescription;
         this.eventStartdate = eventStartdate;
@@ -36,9 +38,10 @@ public class MyNotification {
         this.message = message;
     }
 
-    public MyNotification(int notificationId, int eventId, String eventName, String eventDescription, Date eventStartdate, Date eventEnddate, String eventCity, String eventAddress, String message, Date suggestedDay) {
+    public MyNotification(int notificationId, int eventId, String userEmail, String eventName, String eventDescription, Date eventStartdate, Date eventEnddate, String eventCity, String eventAddress, String message, Date suggestedDay) {
         this.notificationId = notificationId;
         this.eventId = eventId;
+        this.userEmail = userEmail;
         this.eventName = eventName;
         this.eventDescription = eventDescription;
         this.eventStartdate = eventStartdate;
@@ -63,6 +66,14 @@ public class MyNotification {
 
     public void setEventId(int eventId) {
         this.eventId = eventId;
+    }
+
+    public String getUserEmail() {
+        return userEmail;
+    }
+
+    public void setUserEmail(String userEmail) {
+        this.userEmail = userEmail;
     }
 
     public String getEventName() {

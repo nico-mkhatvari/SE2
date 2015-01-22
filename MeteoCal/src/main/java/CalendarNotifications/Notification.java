@@ -6,6 +6,7 @@
 package CalendarNotifications;
 
 import it.polimi.meteocal.entity.Events;
+import it.polimi.registration.business.security.entity.User;
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -33,9 +34,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Notification.findById", query = "SELECT n FROM Notification n WHERE n.id = :id"),
     @NamedQuery(name = "Notification.findByViewed", query = "SELECT n FROM Notification n WHERE n.viewed = :viewed"),
     @NamedQuery(name = "FindNotificationByEventId", query = "SELECT n FROM Notification n WHERE n.eventid = :eventid"),
-    @NamedQuery(name = "FindNotificationByEventIdAndNotViewed", query = "SELECT n FROM Notification n WHERE n.eventid = :eventid AND n.viewed = :viewed")
-
-})
+    @NamedQuery(name = "FindNotificationByEventIdAndNotViewed", query = "SELECT n FROM Notification n WHERE n.eventid = :eventid AND n.viewed = :viewed"),
+    @NamedQuery(name = "FindMyNotificationByEventIdAndNotViewed", query = "SELECT n FROM Notification n WHERE n.eventid = :eventid AND n.useremail = :useremail AND n.viewed = :viewed")})
 public class Notification implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -51,6 +51,9 @@ public class Notification implements Serializable {
     @JoinColumn(name = "EVENTID", referencedColumnName = "ID")
     @ManyToOne
     private Events eventid;
+    @JoinColumn(name = "USEREMAIL", referencedColumnName = "EMAIL")
+    @ManyToOne
+    private User useremail;
 
     public Notification() {
     }
@@ -86,6 +89,14 @@ public class Notification implements Serializable {
 
     public void setEventid(Events eventid) {
         this.eventid = eventid;
+    }
+
+    public User getUseremail() {
+        return useremail;
+    }
+
+    public void setUseremail(User useremail) {
+        this.useremail = useremail;
     }
 
     @Override

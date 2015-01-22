@@ -10,7 +10,7 @@
     <h:body>
         <h:form id="inboxform">
             <h3>Inbox</h3>
-            <p:tabView>
+            <p:tabView id="t">
                 <p:tab title="Invitations (#{inbox.onInvitationlist.size()})">
                     <p:dataTable id="inbox" value="#{inbox.myEventlist}" var="events" selection="#{inbox.selectedEvent}" rowKey="#{events.id}">
                         <f:facet name="header">
@@ -50,7 +50,7 @@
                         </p:column>
                     </p:dataTable>
                     <h3> </h3>
-                    <p:commandButton action="#{inbox.buttonAction}" update="invitationlist" value="See Details" ajax="true"/>
+                    <p:commandButton action="#{inbox.buttonAction}" update="invitationlist" value="See Details"/>
                     <p:dataTable value="#{inbox.userlist}" var="user" id="invitationlist">
                         <f:facet name="header">
                             Invitation List
@@ -62,8 +62,8 @@
                             <h:outputText value="#{user.email}" />
                         </p:column>
                     </p:dataTable>
-                    <p:commandButton action="#{inbox.accept}" value="Accept" update="inbox" />
-                    <p:commandButton action="#{inbox.decline}" value="Decline" update="inbox" />
+                    <p:commandButton action="#{inbox.accept}" value="Accept"  />
+                    <p:commandButton action="#{inbox.decline}" value="Decline" />
                     <p:commandButton action="index" value="Go Back" />
                 </p:tab>
                 <p:tab title="Notifications (#{notificationBean.myNotificationlist.size()})">
@@ -103,7 +103,8 @@
                             </h:outputText> 
                         </p:column>
                     </p:dataTable>
-                    <p:commandButton action="#{notificationBean.setAsReadNotification()}" value="Set as read" update="notificationlist" />
+                    <p:commandButton action="#{notificationBean.setAsReadNotification()}" value="Set as read" update=":inboxform"/>
+                    <p:commandButton action="index" value="Go Back"/>
                 </p:tab>
             </p:tabView>
         </h:form>

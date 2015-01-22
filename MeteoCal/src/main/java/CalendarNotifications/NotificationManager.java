@@ -52,7 +52,7 @@ public class NotificationManager {
         }
 
         //Inizializza la lista contente tutte le notifiche dove l'evento è a rischio maltempo
-        badEvents = notificationEJB.findBadEvents(myEvents);
+        badEvents = notificationEJB.findBadEvents(myEvents, um.getLoggedUser());
 
         for (Notification n : badEvents) {
             Events e = eventsEJB.findEvent(n.getEventid().getId());
@@ -63,12 +63,12 @@ public class NotificationManager {
                 //inserire metodo che, dato l'eventid, cerca primo giorno di sole e ritorna una stringa o un date                
                 Date suggetedDay = new Date(); //test
 
-                myNotificationlist.add(new MyNotification(n.getId(), e.getId(), e.getName(), e.getDescription(), 
-                        e.getStartdate(), e.getEnddate(), e.getCity(), e.getAddress(), 
+                myNotificationlist.add(new MyNotification(n.getId(), e.getId(), n.getUseremail().getEmail(), 
+                        e.getName(), e.getDescription(), e.getStartdate(), e.getEnddate(), e.getCity(), e.getAddress(), 
                         "Bad weather condition for organized event", suggetedDay));
             } else { //altrimenti brutto meteo per l'evento a cui partecipi domani
-                myNotificationlist.add(new MyNotification(n.getId(), e.getId(), e.getName(), e.getDescription(), 
-                        e.getStartdate(), e.getEnddate(), e.getCity(), e.getAddress(), 
+                myNotificationlist.add(new MyNotification(n.getId(), e.getId(), n.getUseremail().getEmail(), 
+                        e.getName(), e.getDescription(), e.getStartdate(), e.getEnddate(), e.getCity(), e.getAddress(), 
                         "Bad weather condition for tomorrow event"));
             }
         }
@@ -86,9 +86,8 @@ public class NotificationManager {
         this.myNotification = myNotification;
     }
 
-    public String setAsReadNotification() {
+    public void setAsReadNotification() {
         Notification searchedNotification = notificationEJB.findNotification(myNotification.getNotificationId());
         notificationEJB.deleteNotification(searchedNotification.getId());
-        return "inbox";
     }
 }

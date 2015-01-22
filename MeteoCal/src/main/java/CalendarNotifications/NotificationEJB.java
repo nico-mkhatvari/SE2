@@ -61,13 +61,14 @@ public class NotificationEJB {
         return em.find(Notification.class, id);
     }
     
-    public List<Notification> findBadEvents(List<Events> eventlist) {
+    public List<Notification> findBadEvents(List<Events> eventlist, User u) {
         List<Notification> notlist = new ArrayList<>();
         for (Events e : eventlist) {
            
             //cerca tutti gli eventi in cui è presente in notificationlist e non è già stato letto
-            List<Notification> tempLN = em.createNamedQuery("FindNotificationByEventIdAndNotViewed")
+            List<Notification> tempLN = em.createNamedQuery("FindMyNotificationByEventIdAndNotViewed")
                     .setParameter("eventid", e)
+                    .setParameter("useremail", u)
                     .setParameter("viewed", false)
                     .getResultList();
             for (Notification n : tempLN) {
