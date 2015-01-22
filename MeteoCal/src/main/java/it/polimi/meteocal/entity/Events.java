@@ -5,6 +5,7 @@
  */
 package it.polimi.meteocal.entity;
 
+import CalendarNotifications.Notification;
 import it.polimi.registration.business.security.entity.User;
 import java.io.Serializable;
 import java.util.Collection;

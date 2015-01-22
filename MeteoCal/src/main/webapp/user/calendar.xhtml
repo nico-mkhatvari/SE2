@@ -49,8 +49,8 @@
                             <p:row>
                                 <h:outputLabel for="privacy" value="Privacy:" />
                                 <p:selectOneRadio id="privacy" value="#{calendarBean.scheduleEvent.privacy}" disabled="#{calendarBean.notOrganizer}" required="true" requiredMessage="required field">
-                                    <f:selectItem itemLabel="public" itemValue="#{true}"/>
-                                    <f:selectItem itemLabel="private" itemValue="#{false}"/>
+                                    <f:selectItem itemLabel="public" itemValue="#{false}"/>
+                                    <f:selectItem itemLabel="private" itemValue="#{true}"/>
                                 </p:selectOneRadio>
                             </p:row>
                             <p:row>
@@ -83,8 +83,8 @@
                             </p:row>
                         </h:panelGrid>
                     </p:tab>
-                    <p:tab title="Forecast" >
-                        <p:commandButton value="Current Weather" update="forecastlist" action="#{weatherBean.getWeatherDataList(calendarBean.scheduleEvent.startDate, calendarBean.scheduleEvent.endDate, calendarBean.scheduleEvent.city)}"/>
+                    <p:tab title="Forecast" disabled="#{calendarBean.disableForecast}">
+                        <p:commandButton value="Get Weather Info" update="forecastlist" action="#{weatherBean.getWeatherDataList(calendarBean.scheduleEvent.startDate, calendarBean.scheduleEvent.endDate, calendarBean.scheduleEvent.city)}"/>
                         <p:dataTable id="forecastlist" var="forecast"  value="#{weatherBean.weatherDataList}">
                             <p:column headerText="City">
                                 <h:outputText value="#{forecast.city}"/>

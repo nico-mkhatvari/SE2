@@ -31,8 +31,13 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Notification.findAll", query = "SELECT n FROM Notification n"),
     @NamedQuery(name = "Notification.findById", query = "SELECT n FROM Notification n WHERE n.id = :id"),
-    @NamedQuery(name = "Notification.findByViewed", query = "SELECT n FROM Notification n WHERE n.viewed = :viewed")})
+    @NamedQuery(name = "Notification.findByViewed", query = "SELECT n FROM Notification n WHERE n.viewed = :viewed"),
+    @NamedQuery(name = "FindNotificationByEventId", query = "SELECT n FROM Notification n WHERE n.eventid = :eventid"),
+    @NamedQuery(name = "FindNotificationByEventIdAndNotViewed", query = "SELECT n FROM Notification n WHERE n.eventid = :eventid AND n.viewed = :viewed")
+
+})
 public class Notification implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -107,5 +112,5 @@ public class Notification implements Serializable {
     public String toString() {
         return "it.polimi.meteocal.entity.Notification[ id=" + id + " ]";
     }
-    
+
 }

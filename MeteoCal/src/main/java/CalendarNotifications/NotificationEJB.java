@@ -5,8 +5,12 @@
  */
 package CalendarNotifications;
 
-import it.polimi.meteocal.control.InvitationListEJB;
-import javax.ejb.EJB;
+import it.polimi.meteocal.entity.Events;
+import it.polimi.meteocal.entity.InvitationList;
+import it.polimi.registration.business.security.entity.User;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -51,6 +55,26 @@ public class NotificationEJB {
             System.out.print("OGGETTO DA SALVARE E' NULLO!!!\n");
             System.err.println(e);
         }
+    }
+    
+    public Notification findNotification(int id){
+        return em.find(Notification.class, id);
+    }
+    
+    public List<Notification> findBadEvents(List<Events> eventlist) {
+        List<Notification> notlist = new ArrayList<>();
+        for (Events e : eventlist) {
+           
+            //cerca tutti gli eventi in cui è presente in notificationlist e non è già stato letto
+            List<Notification> tempLN = em.createNamedQuery("FindNotificationByEventIdAndNotViewed")
+                    .setParameter("eventid", e)
+                    .setParameter("viewed", false)
+                    .getResultList();
+            for (Notification n : tempLN) {
+                notlist.add(n);
+            }
+        }
+        return notlist;
     }
 
     

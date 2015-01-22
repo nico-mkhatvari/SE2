@@ -10,59 +10,102 @@
     <h:body>
         <h:form id="inboxform">
             <h3>Inbox</h3>
-            <p:dataTable id="inbox" value="#{inbox.myEventlist}" var="events" selection="#{inbox.selectedEvent}" rowKey="#{events.id}">
-                <f:facet name="header">
-                    Event List
-                </f:facet>
-                <p:column selectionMode="single"/>
-                <p:column headerText="Name">
-                    <h:outputText value="#{events.name}" />
-                </p:column>
-                <p:column headerText="Description">
-                    <h:outputText value="#{events.description}" />
-                </p:column>
-                <p:column headerText="From">
-                    <h:outputText value="#{events.startdate}">
-                        <f:convertDateTime pattern="yyyy-MM-dd HH:mm" timeZone="GMT+1"/>
-                    </h:outputText>
-                </p:column>
-                <p:column headerText="To">
-                    <h:outputText value="#{events.enddate}" >
-                        <f:convertDateTime pattern="yyyy-MM-dd HH:mm" timeZone="GMT+1"/>
-                    </h:outputText>                        
-                </p:column>
-                <p:column headerText="OutDoor/Indoor">
-                    <h:outputText value="#{events.outdoor}" />
-                </p:column>
-                <p:column headerText="Public">
-                    <h:outputText value="#{events.privacy}" />
-                </p:column>                    
-                <p:column headerText="City">
-                    <h:outputText value="#{events.city}" />
-                </p:column>
-                <p:column headerText="Address">
-                    <h:outputText value="#{events.address}" />
-                </p:column>                
-                <p:column headerText="Organizer">
-                    <h:outputText value="#{events.organizer}" />
-                </p:column>
-            </p:dataTable>
-            <h3> </h3>
-            <p:commandButton action="#{inbox.buttonAction}" update="invitationlist" value="See Details" ajax="true"/>
-            <p:dataTable value="#{inbox.userlist}" var="user" id="invitationlist">
-                <f:facet name="header">
-                    Invitation List
-                </f:facet>
-                <p:column headerText="Name">
-                    <h:outputText value="#{user.name}" />
-                </p:column>
-                <p:column headerText="Email">
-                    <h:outputText value="#{user.email}" />
-                </p:column>
-            </p:dataTable>
-            <p:commandButton action="#{inbox.accept}" value="Accept" update=":inboxform:inbox" />
-            <p:commandButton action="#{inbox.decline}" value="Decline" update=":inboxform:inbox" />
-            <p:commandButton action="index" value="Go Back" />
+            <p:tabView>
+                <p:tab title="Invitations (#{inbox.onInvitationlist.size()})">
+                    <p:dataTable id="inbox" value="#{inbox.myEventlist}" var="events" selection="#{inbox.selectedEvent}" rowKey="#{events.id}">
+                        <f:facet name="header">
+                            Event List
+                        </f:facet>
+                        <p:column selectionMode="single"/>
+                        <p:column headerText="Name">
+                            <h:outputText value="#{events.name}" />
+                        </p:column>
+                        <p:column headerText="Description">
+                            <h:outputText value="#{events.description}" />
+                        </p:column>
+                        <p:column headerText="From">
+                            <h:outputText value="#{events.startdate}">
+                                <f:convertDateTime pattern="yyyy-MM-dd HH:mm" timeZone="GMT+1"/>
+                            </h:outputText>
+                        </p:column>
+                        <p:column headerText="To">
+                            <h:outputText value="#{events.enddate}" >
+                                <f:convertDateTime pattern="yyyy-MM-dd HH:mm" timeZone="GMT+1"/>
+                            </h:outputText>                        
+                        </p:column>
+                        <p:column headerText="OutDoor/Indoor">
+                            <h:outputText value="#{events.outdoor}" />
+                        </p:column>
+                        <p:column headerText="Public">
+                            <h:outputText value="#{events.privacy}" />
+                        </p:column>                    
+                        <p:column headerText="City">
+                            <h:outputText value="#{events.city}" />
+                        </p:column>
+                        <p:column headerText="Address">
+                            <h:outputText value="#{events.address}" />
+                        </p:column>                
+                        <p:column headerText="Organizer">
+                            <h:outputText value="#{events.organizer}" />
+                        </p:column>
+                    </p:dataTable>
+                    <h3> </h3>
+                    <p:commandButton action="#{inbox.buttonAction}" update="invitationlist" value="See Details" ajax="true"/>
+                    <p:dataTable value="#{inbox.userlist}" var="user" id="invitationlist">
+                        <f:facet name="header">
+                            Invitation List
+                        </f:facet>
+                        <p:column headerText="Name">
+                            <h:outputText value="#{user.name}" />
+                        </p:column>
+                        <p:column headerText="Email">
+                            <h:outputText value="#{user.email}" />
+                        </p:column>
+                    </p:dataTable>
+                    <p:commandButton action="#{inbox.accept}" value="Accept" update="inbox" />
+                    <p:commandButton action="#{inbox.decline}" value="Decline" update="inbox" />
+                    <p:commandButton action="index" value="Go Back" />
+                </p:tab>
+                <p:tab title="Notifications (#{notificationBean.myNotificationlist.size()})">
+                    <p:dataTable id="notificationlist" value="#{notificationBean.myNotificationlist}" selection="#{notificationBean.myNotification}" var="mynotification" rowKey="#{mynotification.notificationId}" >
+                        <f:facet name="header">
+                            Notification List
+                        </f:facet>
+                        <p:column selectionMode="single" />
+                        <p:column headerText="Name">
+                            <h:outputText value="#{mynotification.eventName}" />
+                        </p:column>
+                        <p:column headerText="Description">
+                            <h:outputText value="#{mynotification.eventDescription}" />
+                        </p:column>
+                        <p:column headerText="From">
+                            <h:outputText value="#{mynotification.eventStartdate}">
+                                <f:convertDateTime pattern="yyyy-MM-dd HH:mm" timeZone="GMT+1"/>
+                            </h:outputText>   
+                        </p:column>
+                        <p:column headerText="To">
+                            <h:outputText value="#{mynotification.eventEnddate}">
+                                <f:convertDateTime pattern="yyyy-MM-dd HH:mm" timeZone="GMT+1"/>
+                            </h:outputText> 
+                        </p:column>
+                        <p:column headerText="City">
+                            <h:outputText value="#{mynotification.eventCity}" />
+                        </p:column>
+                        <p:column headerText="Address">
+                            <h:outputText value="#{mynotification.eventAddress}" />
+                        </p:column>
+                        <p:column headerText="Message">
+                            <h:outputText value="#{mynotification.message}" />
+                        </p:column>
+                        <p:column headerText="Suggested Day">
+                            <h:outputText value="#{mynotification.suggestedDay}">
+                                <f:convertDateTime pattern="yyyy-MM-dd HH:mm" timeZone="GMT+1"/>
+                            </h:outputText> 
+                        </p:column>
+                    </p:dataTable>
+                    <p:commandButton action="#{notificationBean.setAsReadNotification()}" value="Set as read" update="notificationlist" />
+                </p:tab>
+            </p:tabView>
         </h:form>
     </h:body>
 </html>

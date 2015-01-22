@@ -5,10 +5,10 @@
  */
 package it.polimi.meteocal.boundary;
 
+import CalendarNotifications.NotificationManager;
 import it.polimi.meteocal.control.InvitationListEJB;
 import it.polimi.meteocal.entity.Events;
 import it.polimi.meteocal.entity.InvitationList;
-import it.polimi.meteocal.entity.MyScheduleEvent;
 import it.polimi.registration.business.security.boundary.UserManager;
 import it.polimi.registration.business.security.entity.User;
 import java.util.ArrayList;
@@ -16,9 +16,9 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.bean.ManagedProperty;
+import javax.inject.Inject;
 import javax.inject.Named;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 
 /**
  *
@@ -27,8 +27,9 @@ import javax.persistence.PersistenceContext;
 @Named(value = "inbox")
 @RequestScoped
 public class Inbox {
-
-    private MyScheduleEvent scheduleEvent = new MyScheduleEvent();
+    
+    @Inject
+    private NotificationManager notificationBean;
     @EJB
     private UserManager um;
     @EJB
@@ -96,5 +97,9 @@ public class Inbox {
         init();
         return "inbox?faces-redirect=true";
     }
-
+    
+    //sum of the event invitations and weather notifications
+    public int getInboxSize(){
+        return myEventlist.size() + notificationBean.getMyNotificationlist().size();
+    }
 }

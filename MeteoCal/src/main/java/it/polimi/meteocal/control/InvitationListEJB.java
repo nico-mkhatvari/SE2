@@ -11,6 +11,7 @@ import it.polimi.meteocal.entity.InvitationListPK;
 import it.polimi.registration.business.security.entity.User;
 import java.security.Principal;
 import java.util.List;
+import javax.ejb.Singleton;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
@@ -20,7 +21,7 @@ import javax.persistence.PersistenceContext;
  *
  * @author jiasheng
  */
-@Stateless
+@Singleton
 public class InvitationListEJB extends AbstractFacade<InvitationList> {
     
     @PersistenceContext(unitName = "it.polimi_MeteoCal_war_1.0-SNAPSHOTPU")
