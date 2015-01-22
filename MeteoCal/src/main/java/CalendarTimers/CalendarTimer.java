@@ -1,13 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package CalendarTimers;
 
+package CalendarTimers;
 import it.polimi.meteocal.control.EventsEJB;
 import it.polimi.meteocal.entity.Events;
 import java.util.Calendar;
+import java.util.Iterator;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Schedule;
@@ -48,11 +44,29 @@ public class CalendarTimer {
         List<Events> expiredEvents = em.createNamedQuery("Events.expiredEvents", Events.class).setParameter("enddate", addXhours(0), TemporalType.TIMESTAMP).getResultList();
         List<Events> event24 = em.createNamedQuery("Events.expiredEvents", Events.class).setParameter("enddate", addXhours(24), TemporalType.TIMESTAMP).getResultList();
         List<Events> event72 = em.createNamedQuery("Events.expiredEvents", Events.class).setParameter("enddate", addXhours(72), TemporalType.TIMESTAMP).getResultList();
+        deleteExpiredEvents(expiredEvents);
+        
+        //Check weather RAIN || SNOW || STORM
+        //List<Events> badEvent = checkWeatherConditions(event24);
+        //createNotifications(badEvent);
+        
+    }
+    
+    private List<Events> checkWeatherConditions(List<Events> events){
+        
+        return events;
+    }
+    
+    private void createNotifications(List<Events> events){
+        
+    }
 
-        while (expiredEvents.iterator().hasNext()) {
-            eventEjb.deleteEvent(expiredEvents.get(i).getId());
-            i++;
+    private void deleteExpiredEvents(List<Events> expiredEvents) {
+        
+        for(Events e : expiredEvents) {
+            eventEjb.deleteEvent(e.getId());
         }
+        
     }
 
 }

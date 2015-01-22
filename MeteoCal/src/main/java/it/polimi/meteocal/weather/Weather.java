@@ -5,28 +5,68 @@
  */
 package it.polimi.meteocal.weather;
 
+import it.polimi.meteocal.entity.Events;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
-
 
 /**
  *
  * @author terminator
  */
 public class Weather {
-    
-    WeatherData getSingleWeather(Calendar date, String city) {
+
+    private Calendar date, endDate, startDate;
+    private String city;
+
+    WeatherData getSingleWeather(Events e) {
         
+        processEvents(e);
         WeatherContainer wc = new WeatherContainer();
         wc.initSingleJson(date, date, city);
+        
         return wc.getWeatherDlist().get(0);
     }
-    
-    List<WeatherData> getIntervalWeather(Calendar starDate, Calendar endDate, String City) {
+
+    List<WeatherData> getIntervalWeather(Events e) {
         
+        processEvents(e);
         WeatherContainer wc = new WeatherContainer();
-        wc.initSingleJson(starDate, endDate, City);
+        wc.initSingleJson(startDate, endDate, city);
+        
         return wc.getWeatherDlist();
     }
+
+    List<WeatherData> getBadWeatherData(Events e) {
+        
+        processEvents(e);
+        WeatherContainer wc = new WeatherContainer();
+        wc.initSingleJson(startDate, endDate, city);
+        
+        return wc.getBadWeather();
+    }
     
+    List<WeatherData> getWeatherSunnyDays(Events e) {
+        
+        processEvents(e);
+        WeatherContainer wc = new WeatherContainer();
+        wc.initSingleJson(startDate, endDate, city);
+        
+        return wc.getNextSunnyForecast();
+    }
+    
+    //Methods for pre-processing
+    private Calendar dateToCalendar(Date date) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        return cal;
+    }
+
+    void processEvents(Events e){
+
+        date = dateToCalendar(e.getStartdate());
+        startDate = dateToCalendar(e.getStartdate());
+        endDate = dateToCalendar(e.getEnddate());
+        city = e.getCity();
+    }
 }

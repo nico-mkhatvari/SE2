@@ -18,6 +18,15 @@ public class WeatherData {
     private String weather;
     private String date;
     private float temp;
+    private String weatherCond;
+
+    public String getWeatherCond() {
+        return weatherCond;
+    }
+
+    public void setWeatherCond(String weatherCond) {
+        this.weatherCond = weatherCond;
+    }
     
     public WeatherData(){
     }

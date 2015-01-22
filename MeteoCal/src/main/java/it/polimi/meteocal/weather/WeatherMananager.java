@@ -5,6 +5,7 @@
  */
 package it.polimi.meteocal.weather;
 
+import it.polimi.meteocal.entity.Events;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -36,10 +37,10 @@ public class WeatherMananager {
         //checks if start date and end date have the same day
         if (startCal.get(Calendar.YEAR) == endCal.get(Calendar.YEAR) &&
             startCal.get(Calendar.DAY_OF_YEAR) == endCal.get(Calendar.DAY_OF_YEAR)) {
-            WeatherData weatherData = w.getSingleWeather(startCal, city);
+            WeatherData weatherData = w.getSingleWeather(new Events());
             weatherDataList.add(weatherData);
         } else {
-            weatherDataList = w.getIntervalWeather(startCal, endCal, city);
+            weatherDataList = w.getIntervalWeather(new Events());
         }
         return weatherDataList;
     }
