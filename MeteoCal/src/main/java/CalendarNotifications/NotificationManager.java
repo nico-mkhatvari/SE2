@@ -42,16 +42,18 @@ public class NotificationManager {
     @PostConstruct
     public void init() {
 
+        //inizializzazione delle liste
         myNotificationlist = new ArrayList<>();
-
-        //cerca la lista degli eventi a cui partecipo
+        myNotification = new MyNotification();
+        
+        //ricerca della lista degli eventi a cui partecipo
         List<InvitationList> myParticipation = invitationListEJB.findInvitationListByEmail(um.getLoggedUser().getEmail());
         List<Events> myEvents = new ArrayList<>();
         for (InvitationList il : myParticipation) {
             myEvents.add(il.getEvents());
         }
 
-        //Inizializza la lista contente tutte le notifiche dove l'evento è a rischio maltempo
+        //Inizializzazione della lista che contente tutte le notifiche dove l'evento è a rischio maltempo
         badEvents = notificationEJB.findBadEvents(myEvents, um.getLoggedUser());
 
         for (Notification n : badEvents) {
@@ -89,5 +91,6 @@ public class NotificationManager {
     public void setAsReadNotification() {
         Notification searchedNotification = notificationEJB.findNotification(myNotification.getNotificationId());
         notificationEJB.deleteNotification(searchedNotification.getId());
+        init();
     }
 }

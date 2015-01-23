@@ -8,13 +8,42 @@
         <title>Calendar</title>
     </h:head>
     <h:body onload="#{calendarBean.init()}">
-        <h:form>
-            <h:outputText value="Welcome to #{calendarBean.calendarOwner.name}'s caledar" style="font-weight:bold; font-size:2em;"/>
-            <p:schedule id="schedule" value="#{calendarBean.model}"  draggable="false" resizable="false" view="month" rightHeaderTemplate="null" timeZone="GMT+1" widgetVar="myschedule">
-                <p:ajax event="dateSelect" listener="#{calendarBean.onDateSelect}" update="eventDetails" oncomplete="PF('eventDialog').show();" />
+        <h:form id="headerbar" style="width: 100%">
+            <p:panelGrid columns="6" style="margin: 0 auto;">
+                <p:column>
+                    <h:outputText value="Welcome, #{calendarBean.loggedUser.name}!"/>
+                </p:column>
+                <p:column>
+                    <p:commandLink  value="MeteoCal" action="calendar" ajax="false" />
+                </p:column>
+                <p:column>
+                    <p:outputLabel for="email" value="Search User by Email:"/>
+                    <p:inputText id="email" value="#{calendarBean.calendarOwner.email}"/>
+                    <p:commandButton value="Search" action="#{calendarBean.search(calendarBean.calendarOwner.email)}" ajax="false"/>
+                </p:column>
+                <p:column>
+                    <p:commandButton  value="Check Inbox (#{inbox.getInboxSize()})" action="viewinbox" ajax="false" />
+                </p:column>
+                <p:column>
+                    <p:commandButton value="Account settings" type="button" onclick="PF('dialog').show();" />
+                    <p:dialog header="Modal Dialog" widgetVar="dialog" modal="true">
+                        <h:outputText value="Choose your calendar's privacy:" />
+                        <p:commandButton value="Public" icon="ui-icon-check" action="#{userBean.setPublic()}" ajax="false"/>
+                        <p:commandButton value="Private"  icon="ui-icon-close" action="#{userBean.setPrivate()}" ajax="false"/>
+                    </p:dialog>                
+                </p:column>
+                <p:column>
+                    <p:commandButton action="#{loginBean.logout()}" value="logout"/>
+                </p:column>
+            </p:panelGrid>
+        </h:form>
+        <h:form style="margin: 0 auto; width: 90%">
+            <h:outputText value="Welcome to #{calendarBean.calendarOwner.name}'s caledar" style="font-weight:bold; font-size:2em; margin: 0 auto"/>
+            <p:schedule id="schedule" value="#{calendarBean.model}"  draggable="false" resizable="true" view="month" rightHeaderTemplate="null" timeZone="GMT+1" widgetVar="myschedule" >
+                <p:ajax event="dateSelect" listener="#{calendarBean.onDateSelect}" disabled="#{calendarBean.notOwner}" update="eventDetails" oncomplete="PF('eventDialog').show();" />
                 <p:ajax event="eventSelect" listener="#{calendarBean.onEventSelect}" update="eventDetails" oncomplete="PF('eventDialog').show();"/>
             </p:schedule>
-            <p:dialog widgetVar="eventDialog" header="Event Info" showEffect="clip" hideEffect="clip" dynamic="true" height="550">
+            <p:dialog styleClass="dialog" widgetVar="eventDialog" header="Event Info" showEffect="clip" hideEffect="clip" dynamic="true" height="550">
                 <p:tabView id="eventDetails">
                     <p:tab title="Details">
                         <h:panelGrid >
@@ -115,6 +144,10 @@
             }
             .ui-widget textarea{
                 margin-left: 1em;
+            }
+            .dialog{
+                margin: 0 auto !important;
+                width: 50% !important;
             }
         </style>
     </h:body>

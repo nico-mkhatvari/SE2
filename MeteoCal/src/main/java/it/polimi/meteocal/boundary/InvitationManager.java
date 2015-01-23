@@ -27,7 +27,7 @@ public class InvitationManager {
 
     public InvitationManager() {
     }
-
+    
     public List<User> getInvitationlist() {
         if (invitationlist == null)
             invitationlist = new ArrayList<>();

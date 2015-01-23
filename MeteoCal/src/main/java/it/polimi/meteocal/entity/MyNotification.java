@@ -25,6 +25,9 @@ public class MyNotification {
     private String message;
     private Date suggestedDay;
 
+    public MyNotification() {
+    }
+
     public MyNotification(int notificationId, int eventId, String userEmail, String eventName, String eventDescription, Date eventStartdate, Date eventEnddate, String eventCity, String eventAddress, String message) {
         this.notificationId = notificationId;
         this.eventId = eventId;

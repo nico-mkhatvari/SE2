@@ -33,15 +33,21 @@ public class Inbox {
     private UserManager um;
     @EJB
     private InvitationListEJB invitationListEJB;
-    private List<Events> myEventlist = new ArrayList<>();
+    private List<Events> myEventlist;
     private List<InvitationList> onInvitationlist;
-    private List<User> userlist = new ArrayList<>();
-    private Events selectedEvent = new Events();
+    private List<User> userlist;
+    private Events selectedEvent;
     private List<InvitationList> list;
 
     @PostConstruct
     public void init() {
-        //Inizializza la lista contente tutti gli inviti dove è presente l'utente loggato e non è già partecipante 
+        
+        //Inizializzazione delle liste e deselezione degli eventi precedentemente selezionati
+        selectedEvent = new Events();
+        myEventlist = new ArrayList<>();
+        userlist = new ArrayList<>();
+        
+        //Inizializzazione della lista che contente tutti gli inviti dove è presente l'utente loggato e non è già partecipante 
         onInvitationlist = invitationListEJB.findNotParticipatingListByEmail(um.getLoggedUser().getEmail());
         
         //Estrazione di Events da InvitationList dove è presente l'utente loggato
@@ -85,16 +91,14 @@ public class Inbox {
 
     public String accept() {
         invitationListEJB.acceptInvitation(selectedEvent, um.getLoggedUser());
-        onInvitationlist = new ArrayList<>(); //reset the list
         init();
-        return "inbox?faces-redirect=true";
+        return "";
     }
 
     public String decline() {
         invitationListEJB.declineInvitation(selectedEvent, um.getLoggedUser());
-        onInvitationlist = new ArrayList<>(); //reset the list
         init();
-        return "inbox?faces-redirect=true";
+        return "";
     }
     
     //sum of the event invitations and weather notifications

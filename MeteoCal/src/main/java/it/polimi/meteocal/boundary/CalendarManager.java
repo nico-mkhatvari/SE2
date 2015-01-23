@@ -151,6 +151,10 @@ public class CalendarManager implements Serializable {
         this.calendarOwner = calendarOwner;
     }
 
+    public User getLoggedUser() {
+        return loggedUser;
+    }
+
     public boolean isDisableForecast() {
         return disableForecast;
     }
@@ -217,6 +221,10 @@ public class CalendarManager implements Serializable {
         return !(scheduleEvent.getOrganizer().equals(loggedUser));
     }
 
+    public boolean isNotOwner() {
+        return !(calendarOwner.equals(loggedUser));
+    }
+    
     public String search(String email) {
         if (um.findUser(email) == null) {
             return "usernotfound?faces-redirect=true&email=" + email;

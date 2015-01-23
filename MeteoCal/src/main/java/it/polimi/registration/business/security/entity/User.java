@@ -5,6 +5,7 @@
  */
 package it.polimi.registration.business.security.entity;
 
+import CalendarNotifications.Notification;
 import it.polimi.meteocal.entity.Events;
 import it.polimi.meteocal.entity.InvitationList;
 import it.polimi.registration.business.security.control.PasswordEncrypter;
@@ -28,6 +29,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "USERS.findAll", query = "SELECT u FROM USERS u"),
     @NamedQuery(name = "USERS.findByEmail", query = "SELECT u FROM USERS u WHERE u.email = :email")})
 public class User implements Serializable {
+    @OneToMany(mappedBy = "useremail")
+    private Collection<Notification> notificationCollection;
 
     @Id
     @Pattern(regexp = "[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?",
@@ -143,6 +146,15 @@ public class User implements Serializable {
     @Override
     public String toString() {
         return email;
+    }
+
+    @XmlTransient
+    public Collection<Notification> getNotificationCollection() {
+        return notificationCollection;
+    }
+
+    public void setNotificationCollection(Collection<Notification> notificationCollection) {
+        this.notificationCollection = notificationCollection;
     }
 
 

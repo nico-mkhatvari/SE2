@@ -62,9 +62,9 @@
                             <h:outputText value="#{user.email}" />
                         </p:column>
                     </p:dataTable>
-                    <p:commandButton action="#{inbox.accept}" value="Accept"  />
-                    <p:commandButton action="#{inbox.decline}" value="Decline" />
-                    <p:commandButton action="index" value="Go Back" />
+                    <p:commandButton action="#{inbox.accept}" value="Accept" update="@all" />
+                    <p:commandButton action="#{inbox.decline}" value="Decline" update="@all"/>
+                    <p:commandButton action="calendar" value="Go Back" />
                 </p:tab>
                 <p:tab title="Notifications (#{notificationBean.myNotificationlist.size()})">
                     <p:dataTable id="notificationlist" value="#{notificationBean.myNotificationlist}" selection="#{notificationBean.myNotification}" var="mynotification" rowKey="#{mynotification.notificationId}" >
@@ -103,8 +103,8 @@
                             </h:outputText> 
                         </p:column>
                     </p:dataTable>
-                    <p:commandButton action="#{notificationBean.setAsReadNotification()}" value="Set as read" update=":inboxform"/>
-                    <p:commandButton action="index" value="Go Back"/>
+                    <p:commandButton action="#{notificationBean.setAsReadNotification()}" value="Set as read" update="@all"/>
+                    <p:commandButton action="calendar" value="Go Back"/>
                 </p:tab>
             </p:tabView>
         </h:form>
