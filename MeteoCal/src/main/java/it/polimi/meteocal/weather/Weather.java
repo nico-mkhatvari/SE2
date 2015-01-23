@@ -8,7 +8,9 @@ package it.polimi.meteocal.weather;
 import it.polimi.meteocal.entity.Events;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.TimeZone;
 
 /**
  *
@@ -57,7 +59,8 @@ public class Weather {
     
     //Methods for pre-processing
     private Calendar dateToCalendar(Date date) {
-        Calendar cal = Calendar.getInstance();
+        Calendar cal = new GregorianCalendar(TimeZone.getTimeZone("GMT+1"));
+        System.out.println(cal.getTime());
         cal.setTime(date);
         return cal;
     }

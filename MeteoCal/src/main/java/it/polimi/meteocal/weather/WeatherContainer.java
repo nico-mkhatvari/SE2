@@ -7,12 +7,11 @@ package it.polimi.meteocal.weather;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 import javax.json.JsonObject;
-import javax.json.stream.JsonParser;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
-import javax.ws.rs.core.Response;
 import javax.json.JsonArray;
 import javax.ws.rs.Path;
 import javax.ws.rs.client.Client;
@@ -29,12 +28,12 @@ public class WeatherContainer {
     //LISTA CONTENTE PREVISIONI
     private List<WeatherData> weatherDlist = new ArrayList<>();
     private List<WeatherData> badWeather = new ArrayList<>();
-    private String city;
-    
+    private List<WeatherData> nextSunnyForecast = new ArrayList<>();
+
+    private String city = "Milano";
     private int eventWindow = 0;
     private int availableWindow = 0;
-    private int endwindow;
-    private List<WeatherData> nextSunnyForecast;
+    private int endwindow = 14;
 
     private Client client;
     private WebTarget curtarget;
@@ -43,9 +42,10 @@ public class WeatherContainer {
     private JsonObject json;
 
     private final int DAY = 1000 * 60 * 60 * 24;
+    private final int HOUR = DAY / 24;
+    private final Calendar NOW = new GregorianCalendar();
 
     public WeatherContainer() {
-        //response = invocation.invoke();
 
     }
 
@@ -74,9 +74,16 @@ public class WeatherContainer {
     }
 
     //gets the start/end index of weather list
-    private int setDateIndex(Calendar s) {
-
-        int i = (int) ((s.getTimeInMillis() - Calendar.getInstance().getTimeInMillis()) / DAY);
+    private int setDateIndex(Calendar c) {
+        
+        System.out.print(c.getTime());
+        System.out.print(c.get(Calendar.HOUR_OF_DAY));
+        int i = (int)(c.getTimeInMillis() / DAY - NOW.getTimeInMillis() / DAY);
+        //Openweather measures tempreture at 12 AM of every day
+        if (i == 0 && (c.get(Calendar.HOUR_OF_DAY) < 12)) {
+                i++;
+                
+        }
         if (i >= 15) {
             i = 15 - 1;
         }
@@ -142,7 +149,7 @@ public class WeatherContainer {
     private boolean findSubstring(String subString, String fullString) {
         boolean findit = false;
 
-        for (int i = 0; i < (fullString.length() - subString.length()); i++) {
+        for (int i = 0; i <= (fullString.length() - subString.length()); i++) {
             if (fullString.regionMatches(true, i, subString, 0, subString.length())) {
                 findit = true;
             }
@@ -153,15 +160,16 @@ public class WeatherContainer {
 
     private void controllForecastWindow(Calendar startDate, Calendar endDate) {
 
-        eventWindow = (int) (endDate.getTimeInMillis() - startDate.getTimeInMillis()) / DAY;
-        availableWindow = (int) (Calendar.getInstance().getTimeInMillis() + 14 * DAY - endDate.getTimeInMillis()) / DAY;
-        endwindow = (int) (Calendar.getInstance().getTimeInMillis() + 14 * DAY) / DAY;
+        eventWindow = (int) (endDate.getTimeInMillis() / DAY - startDate.getTimeInMillis() / DAY);
+        availableWindow = (int) (Calendar.getInstance().getTimeInMillis() / DAY + 14 - endDate.getTimeInMillis() / DAY);
+        endwindow = 14;
 
     }
 
     private void extractNextGoodWeather() {
         //if event window
-        for (int i = endIndex; i <= endwindow && availableWindow >= eventWindow; i++) {
+        int j = 0;
+        for (int i = startIndex + 1; i <= endwindow && availableWindow >= eventWindow && j < eventWindow; i++) {
 
             JsonObject jtemp;
             WeatherData wdata;
@@ -178,10 +186,11 @@ public class WeatherContainer {
                 wdata.setCity(city);
                 wdata.setTemp(Float.parseFloat(jtemp.getJsonObject("temp").get("day").toString()));
                 nextSunnyForecast.add(wdata);
-
+                j++;
             } else {
 
                 availableWindow--;
+                j = 0;
             }
 
         }
@@ -208,7 +217,5 @@ public class WeatherContainer {
     public List<WeatherData> getNextSunnyForecast() {
         return nextSunnyForecast;
     }
-    
-    
 
 }
