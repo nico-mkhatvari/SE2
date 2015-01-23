@@ -43,7 +43,7 @@ public class InvitationList implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "PARTICIPATE")
-    private boolean participate;
+    private boolean participate = true;
     @JoinColumn(name = "USER", referencedColumnName = "EMAIL", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private User user1;

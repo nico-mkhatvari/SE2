@@ -113,8 +113,8 @@
                         </h:panelGrid>
                     </p:tab>
                     <p:tab title="Forecast" disabled="#{calendarBean.disableForecast}">
-                        <p:commandButton value="Get Weather Info" update="forecastlist" action="#{weatherBean.getWeatherDataList(calendarBean.scheduleEvent.startDate, calendarBean.scheduleEvent.endDate, calendarBean.scheduleEvent.city)}"/>
-                        <p:dataTable id="forecastlist" var="forecast"  value="#{weatherBean.weatherDataList}">
+                        <p:commandButton value="Get Weather Info" update="forecastlist" action="#{weatherManager.getWeather(calendarBean.scheduleEvent.eventId)}"/>
+                        <p:dataTable id="forecastlist" var="forecast"  value="#{weatherManager.weatherDataList}">
                             <p:column headerText="City">
                                 <h:outputText value="#{forecast.city}"/>
                             </p:column>

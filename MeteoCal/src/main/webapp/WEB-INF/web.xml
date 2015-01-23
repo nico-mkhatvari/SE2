@@ -18,9 +18,6 @@
             30
         </session-timeout>
     </session-config>
-    <welcome-file-list>
-        <welcome-file>weather.xhtml</welcome-file>
-    </welcome-file-list>
     <login-config>
         <auth-method>FORM</auth-method>
         <realm-name>JDBCRealm</realm-name>
@@ -29,6 +26,9 @@
             <form-error-page>/login.xhtml?error=true</form-error-page>
         </form-login-config>
     </login-config>
+    <welcome-file-list>
+        <welcome-file>login.xhtml</welcome-file>
+    </welcome-file-list>
     <security-constraint>
         <web-resource-collection>
             <web-resource-name>Logged User</web-resource-name>

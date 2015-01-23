@@ -132,7 +132,7 @@ public class WeatherContainer {
             String weather = jtemp.getJsonArray("weather").getJsonObject(0).getString("main");
 
             //Add only bad weather
-            if (findSubstring("rain", weather) || findSubstring("storm", weather) || findSubstring("snow", weather)) {
+            if (findSubstring("rain", weather) || findSubstring("storm", weather) || findSubstring("cloud", weather) || findSubstring("snow", weather)) {
 
                 wdata = new WeatherData();
                 wdata.setWeatherCond(jtemp.getJsonArray("weather").getJsonObject(0).getString("main"));
@@ -169,7 +169,7 @@ public class WeatherContainer {
     private void extractNextGoodWeather() {
         //if event window
         int j = 0;
-        for (int i = startIndex + 1; i <= endwindow && availableWindow >= eventWindow && j < eventWindow; i++) {
+        for (int i = startIndex + 1; i <= endwindow && availableWindow >= eventWindow && j <= eventWindow; i++) {
 
             JsonObject jtemp;
             WeatherData wdata;

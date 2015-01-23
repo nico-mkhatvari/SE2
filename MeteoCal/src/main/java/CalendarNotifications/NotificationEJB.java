@@ -6,10 +6,8 @@
 package CalendarNotifications;
 
 import it.polimi.meteocal.entity.Events;
-import it.polimi.meteocal.entity.InvitationList;
 import it.polimi.registration.business.security.entity.User;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;

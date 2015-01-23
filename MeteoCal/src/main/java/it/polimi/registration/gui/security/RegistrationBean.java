@@ -48,7 +48,7 @@ public class RegistrationBean {
             return "";
         } else {
             um.save(user);
-            return "user/index?faces-redirect=true";
+            return "user/calendar?faces-redirect=true";
         }
     }
 

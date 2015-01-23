@@ -34,7 +34,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Notification.findById", query = "SELECT n FROM Notification n WHERE n.id = :id"),
     @NamedQuery(name = "Notification.findByViewed", query = "SELECT n FROM Notification n WHERE n.viewed = :viewed"),
     @NamedQuery(name = "FindNotificationByEventId", query = "SELECT n FROM Notification n WHERE n.eventid = :eventid"),
-    @NamedQuery(name = "FindNotificationByEventIdAndNotViewed", query = "SELECT n FROM Notification n WHERE n.eventid = :eventid AND n.viewed = :viewed"),
+    @NamedQuery(name = "FindNotificationByEventIdAndNotViewed", query = "SELECT n FROM Notification n WHERE n.eventid = :eventid AND n.viewed = :viewed AND n.useremail = :useremail"),
+    @NamedQuery(name = "FindSentNotification", query = "SELECT n FROM Notification n WHERE n.eventid = :eventid AND n.useremail = :useremail"),
     @NamedQuery(name = "FindMyNotificationByEventIdAndNotViewed", query = "SELECT n FROM Notification n WHERE n.eventid = :eventid AND n.useremail = :useremail AND n.viewed = :viewed")})
 public class Notification implements Serializable {
 

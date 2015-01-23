@@ -1,9 +1,13 @@
 package CalendarTimers;
 
+import CalendarNotifications.Notification;
+import CalendarNotifications.NotificationEJB;
 import it.polimi.meteocal.control.EventsEJB;
 import it.polimi.meteocal.entity.Events;
+import it.polimi.meteocal.entity.InvitationList;
 import it.polimi.meteocal.weather.Weather;
 import it.polimi.meteocal.weather.WeatherData;
+import it.polimi.registration.business.security.entity.User;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -28,6 +32,8 @@ public class CalendarTimer {
     EntityManager em;
     @EJB
     private EventsEJB eventEjb;
+    @EJB
+    private NotificationEJB NotificationEjb;
 
     Calendar addXhours(int hours) {
 
@@ -48,8 +54,10 @@ public class CalendarTimer {
 
         //Check weather RAIN || SNOW || STORM
         List<Events> badEvent = checkWeatherConditions(event24);
-        
-        //createNotifications(badEvent);
+
+        if (!badEvent.isEmpty()) {
+            createNotifications(badEvent);
+        }
 
     }
 
@@ -60,14 +68,37 @@ public class CalendarTimer {
         for (Events e : events) {
             w = new Weather();
             wd = w.getBadWeatherData(e);
-            if(!wd.isEmpty())
+            if (!wd.isEmpty()) {
                 badE.add(e);
+            }
         }
         return badE;
     }
 
     private void createNotifications(List<Events> events) {
+        Notification n;
+        List<User> u;
+        for (Events e : events) {
+            List<InvitationList> list = em.createNamedQuery("findAllParticipatingListWithEventId", InvitationList.class)
+                    .setParameter("eventid", e.getId())
+                    .setParameter("participate", true)
+                    .getResultList();
+            for (InvitationList il : list) {
+                n = new Notification();
+                n.setEventid(e);
+                n.setUseremail(il.getUser1());
 
+                List<Notification> sizeResult = em.createNamedQuery("FindSentNotification", Notification.class)
+                        .setParameter("eventid", e)
+                        .setParameter("useremail", il.getUser1())
+                        .getResultList();
+                if (sizeResult.isEmpty()) {
+                    n.setViewed(false);
+                    NotificationEjb.createNotification(n);
+                }
+            }
+
+        }
     }
 
     private void deleteExpiredEvents(List<Events> expiredEvents) {

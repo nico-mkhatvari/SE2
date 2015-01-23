@@ -39,14 +39,14 @@ public class CalendarManager implements Serializable {
     private UserManager um;
     @EJB
     private InvitationListEJB invitationListEJB;
-    private boolean disableForecast; 
+    private boolean disableForecast;
 
     @PostConstruct
     public void init() {
         model = new DefaultScheduleModel();
         loggedUser = um.getLoggedUser();
         disableForecast = true; // disables weather info tab for new events
-        
+
         //gets the calendar's owner of the research by email
         FacesContext facesContext = FacesContext.getCurrentInstance();
         if (facesContext.getExternalContext().getRequestParameterMap().get("email") == null) {
@@ -160,7 +160,6 @@ public class CalendarManager implements Serializable {
     }
 
 ////////////////////////////////////////////////////////////////////////////////////////
-
     public void addEvent() {
         User eventOrganizer = loggedUser;
         String eventName = scheduleEvent.getTitle();
@@ -173,21 +172,20 @@ public class CalendarManager implements Serializable {
         String eventAddress = scheduleEvent.getAddress();
         List<User> eventInvitedList = scheduleEvent.getParticipationlist(); //get the selection
 
-        if (scheduleEvent.getId() == null) {
-            event = new Events(eventName, eventDescription, eventStartdate, eventEnddate,
-                    eventOutdoor, eventPrivacy, eventCity, eventAddress, eventOrganizer);
-            eventsEjb.create(event);
-            invitationListEJB.save(event, eventInvitedList);
-            model.addEvent(scheduleEvent);
-        } else //if id exists, modify
-        {
+        //if it's an existing event, delete it
+        if (scheduleEvent.getId() != null) {
             int eventId = scheduleEvent.getEventId();
             event = eventsEjb.find(eventId);
-            eventsEjb.updateEvent(eventId, eventName, eventDescription,
-                    eventStartdate, eventEnddate, eventOutdoor, eventPrivacy, eventCity, eventAddress);
-            invitationListEJB.save(event, eventInvitedList);
+            eventsEjb.deleteEvent(eventId);
             model.updateEvent(scheduleEvent);
         }
+        
+        //saves a new event
+        event = new Events(eventName, eventDescription, eventStartdate, eventEnddate,
+                eventOutdoor, eventPrivacy, eventCity, eventAddress, eventOrganizer);
+        eventsEjb.create(event);
+        invitationListEJB.save(event, eventInvitedList);
+        model.addEvent(scheduleEvent);
 
         scheduleEvent = new MyScheduleEvent();//reset dialog form
         init();
@@ -224,7 +222,7 @@ public class CalendarManager implements Serializable {
     public boolean isNotOwner() {
         return !(calendarOwner.equals(loggedUser));
     }
-    
+
     public String search(String email) {
         if (um.findUser(email) == null) {
             return "usernotfound?faces-redirect=true&email=" + email;

@@ -90,7 +90,8 @@ public class NotificationManager {
 
     public void setAsReadNotification() {
         Notification searchedNotification = notificationEJB.findNotification(myNotification.getNotificationId());
-        notificationEJB.deleteNotification(searchedNotification.getId());
+        searchedNotification.setViewed(true);
+        notificationEJB.updateNotification(searchedNotification);
         init();
     }
 }

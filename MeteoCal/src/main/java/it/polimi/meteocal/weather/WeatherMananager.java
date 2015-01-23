@@ -5,11 +5,11 @@
  */
 package it.polimi.meteocal.weather;
 
+import it.polimi.meteocal.control.EventsEJB;
 import it.polimi.meteocal.entity.Events;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
+import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 
@@ -17,32 +17,18 @@ import javax.inject.Named;
  *
  * @author jiasheng
  */
-@Named(value = "weatherBean")
+@Named(value = "weatherManager")
 @RequestScoped
 public class WeatherMananager {
 
+    @EJB
+    private EventsEJB eEJB;
     private List<WeatherData> weatherDataList = new ArrayList<>();
     private Weather w = new Weather();
 
-    public WeatherMananager() {
-    }
-    
-    public List<WeatherData> getWeatherDataList(Date startDate, Date endDate, String city) {
-        
-        Calendar startCal = Calendar.getInstance();
-        startCal.setTime(startDate);
-        Calendar endCal = Calendar.getInstance();
-        endCal.setTime(endDate);
-        
-        //checks if start date and end date have the same day
-        if (startCal.get(Calendar.YEAR) == endCal.get(Calendar.YEAR) &&
-            startCal.get(Calendar.DAY_OF_YEAR) == endCal.get(Calendar.DAY_OF_YEAR)) {
-            WeatherData weatherData = w.getSingleWeather(new Events());
-            weatherDataList.add(weatherData);
-        } else {
-            weatherDataList = w.getIntervalWeather(new Events());
-        }
-        return weatherDataList;
+    public void getWeather(int eId){
+    Events e = eEJB.findEvent(eId);
+    weatherDataList = w.getIntervalWeather(e);
     }
 
     public List<WeatherData> getWeatherDataList() {
