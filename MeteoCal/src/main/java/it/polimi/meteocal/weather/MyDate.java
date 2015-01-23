@@ -40,7 +40,6 @@ public class MyDate {
         weatherSunny = np.getWeatherSunnyDays(myEvent);
         //weatherData = np.getSingleWeather(new Events());
         //////////////////////////////////////////////////////////////////////////////
-        Iterator<WeatherData> it = weatherSunny.iterator();
 
         for(WeatherData wd : weatherSunny){
             System.out.println(wd.getCity()

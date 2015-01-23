@@ -21,7 +21,7 @@ public class Weather {
     private Calendar date, endDate, startDate;
     private String city;
 
-    WeatherData getSingleWeather(Events e) {
+    public WeatherData getSingleWeather(Events e) {
         
         processEvents(e);
         WeatherContainer wc = new WeatherContainer();
@@ -30,7 +30,7 @@ public class Weather {
         return wc.getWeatherDlist().get(0);
     }
 
-    List<WeatherData> getIntervalWeather(Events e) {
+    public List<WeatherData> getIntervalWeather(Events e) {
         
         processEvents(e);
         WeatherContainer wc = new WeatherContainer();
@@ -39,7 +39,7 @@ public class Weather {
         return wc.getWeatherDlist();
     }
 
-    List<WeatherData> getBadWeatherData(Events e) {
+    public List<WeatherData> getBadWeatherData(Events e) {
         
         processEvents(e);
         WeatherContainer wc = new WeatherContainer();
@@ -48,7 +48,7 @@ public class Weather {
         return wc.getBadWeather();
     }
     
-    List<WeatherData> getWeatherSunnyDays(Events e) {
+    public List<WeatherData> getWeatherSunnyDays(Events e) {
         
         processEvents(e);
         WeatherContainer wc = new WeatherContainer();
