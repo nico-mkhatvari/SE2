@@ -5,10 +5,10 @@
  */
 package it.polimi.meteocal.boundary;
 
+import CalendarNotifications.NotificationManager;
 import it.polimi.meteocal.control.InvitationListEJB;
 import it.polimi.meteocal.entity.Events;
 import it.polimi.meteocal.entity.InvitationList;
-import it.polimi.meteocal.entity.MyScheduleEvent;
 import it.polimi.registration.business.security.boundary.UserManager;
 import it.polimi.registration.business.security.entity.User;
 import java.util.ArrayList;
@@ -16,9 +16,8 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 
 /**
  *
@@ -27,21 +26,28 @@ import javax.persistence.PersistenceContext;
 @Named(value = "inbox")
 @RequestScoped
 public class Inbox {
-
-    private MyScheduleEvent scheduleEvent = new MyScheduleEvent();
+    
+    @Inject
+    private NotificationManager notificationBean;
     @EJB
     private UserManager um;
     @EJB
     private InvitationListEJB invitationListEJB;
-    private List<Events> myEventlist = new ArrayList<>();
+    private List<Events> myEventlist;
     private List<InvitationList> onInvitationlist;
-    private List<User> userlist = new ArrayList<>();
-    private Events selectedEvent = new Events();
+    private List<User> userlist;
+    private Events selectedEvent;
     private List<InvitationList> list;
 
     @PostConstruct
     public void init() {
-        //Inizializza la lista contente tutti gli inviti dove è presente l'utente loggato e non è già partecipante 
+        
+        //Inizializzazione delle liste e deselezione degli eventi precedentemente selezionati
+        selectedEvent = new Events();
+        myEventlist = new ArrayList<>();
+        userlist = new ArrayList<>();
+        
+        //Inizializzazione della lista che contente tutti gli inviti dove è presente l'utente loggato e non è già partecipante 
         onInvitationlist = invitationListEJB.findNotParticipatingListByEmail(um.getLoggedUser().getEmail());
         
         //Estrazione di Events da InvitationList dove è presente l'utente loggato
@@ -85,16 +91,18 @@ public class Inbox {
 
     public String accept() {
         invitationListEJB.acceptInvitation(selectedEvent, um.getLoggedUser());
-        onInvitationlist = new ArrayList<>(); //reset the list
         init();
-        return "inbox?faces-redirect=true";
+        return "";
     }
 
     public String decline() {
         invitationListEJB.declineInvitation(selectedEvent, um.getLoggedUser());
-        onInvitationlist = new ArrayList<>(); //reset the list
         init();
-        return "inbox?faces-redirect=true";
+        return "";
     }
-
+    
+    //sum of the event invitations and weather notifications
+    public int getInboxSize(){
+        return myEventlist.size() + notificationBean.getMyNotificationlist().size();
+    }
 }

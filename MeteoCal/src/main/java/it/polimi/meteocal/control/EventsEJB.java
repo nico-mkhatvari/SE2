@@ -8,6 +8,7 @@ package it.polimi.meteocal.control;
 import it.polimi.meteocal.entity.Events;
 import java.util.Date;
 import java.util.List;
+import javax.ejb.Singleton;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -17,7 +18,7 @@ import javax.persistence.TypedQuery;
  *
  * @author jiasheng
  */
-@Stateless
+@Singleton
 public class EventsEJB extends AbstractFacade<Events> {
     @PersistenceContext(unitName = "it.polimi_MeteoCal_war_1.0-SNAPSHOTPU")
     private EntityManager em;

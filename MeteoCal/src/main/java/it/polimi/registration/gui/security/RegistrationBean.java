@@ -10,6 +10,8 @@ import it.polimi.registration.business.security.entity.User;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 
 /**
  *
@@ -39,8 +41,15 @@ public class RegistrationBean {
     }
 
     public String register() {
-        um.save(user);
-        return "user/index?faces-redirect=true";
+        //if the user's email has already registered
+        if (um.findUser(user.getEmail()) != null) {
+            FacesContext context = FacesContext.getCurrentInstance();
+            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Already registered email", null));
+            return "";
+        } else {
+            um.save(user);
+            return "user/index?faces-redirect=true";
+        }
     }
 
 }

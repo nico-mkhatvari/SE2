@@ -7,7 +7,8 @@
         <title>Login Page</title>
     </h:head>
     <h:body>
-        <h:form id="loginform">
+        <h1 style="margin: 0 auto; width: 30%; font: 4em;">Welcome to MeteoCal!</h1>
+        <h:form id="loginform" style="margin: 0 auto; width: 30%">
             <p:panel header="Login Form">
                 <p:panelGrid columns="2">
                     <p:outputLabel for="username" value="Email"/>
@@ -20,8 +21,8 @@
                 </p:panelGrid>
             </p:panel>
             <h:messages  style="color: red"/>
+            <p:link outcome="register" value="Don't have an account? Join us!"/>
         </h:form>
-        <p:link outcome="register" value="Register"/>
     </h:body>
 </html>
 

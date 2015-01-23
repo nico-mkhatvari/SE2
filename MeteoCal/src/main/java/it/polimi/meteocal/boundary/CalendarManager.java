@@ -39,12 +39,14 @@ public class CalendarManager implements Serializable {
     private UserManager um;
     @EJB
     private InvitationListEJB invitationListEJB;
+    private boolean disableForecast; 
 
     @PostConstruct
     public void init() {
         model = new DefaultScheduleModel();
         loggedUser = um.getLoggedUser();
-
+        disableForecast = true; // disables weather info tab for new events
+        
         //gets the calendar's owner of the research by email
         FacesContext facesContext = FacesContext.getCurrentInstance();
         if (facesContext.getExternalContext().getRequestParameterMap().get("email") == null) {
@@ -148,6 +150,15 @@ public class CalendarManager implements Serializable {
     public void setCalendarOwner(User calendarOwner) {
         this.calendarOwner = calendarOwner;
     }
+
+    public User getLoggedUser() {
+        return loggedUser;
+    }
+
+    public boolean isDisableForecast() {
+        return disableForecast;
+    }
+
 ////////////////////////////////////////////////////////////////////////////////////////
 
     public void addEvent() {
@@ -194,10 +205,12 @@ public class CalendarManager implements Serializable {
     }
 
     public void onEventSelect(SelectEvent selectEvent) {
+        disableForecast = false;
         scheduleEvent = (MyScheduleEvent) selectEvent.getObject();
     }
 
     public void onDateSelect(SelectEvent selectEvent) {
+        disableForecast = true;
         scheduleEvent = new MyScheduleEvent("", (Date) selectEvent.getObject(), (Date) selectEvent.getObject());
     }
 
@@ -208,6 +221,10 @@ public class CalendarManager implements Serializable {
         return !(scheduleEvent.getOrganizer().equals(loggedUser));
     }
 
+    public boolean isNotOwner() {
+        return !(calendarOwner.equals(loggedUser));
+    }
+    
     public String search(String email) {
         if (um.findUser(email) == null) {
             return "usernotfound?faces-redirect=true&email=" + email;
