@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
+import javax.ejb.Stateless;
 import javax.json.JsonObject;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
@@ -22,6 +23,7 @@ import javax.ws.rs.core.MediaType;
  *
  * @author terminator
  */
+@Stateless
 @Path("/w")
 public class WeatherContainer {
 
@@ -112,7 +114,7 @@ public class WeatherContainer {
             wdata = new WeatherData();
 
             wdata.setWeather(jtemp.getJsonArray("weather").getJsonObject(0).getString("description"));
-            wdata.setWeatherCond(jtemp.getJsonArray("weather").getJsonObject(0).getString("main"));
+            wdata.setWeatherTag(jtemp.getJsonArray("weather").getJsonObject(0).getString("main"));
             wdata.setDate(jtemp.get("dt").toString());
             wdata.setCity(city);
             wdata.setTemp(Float.parseFloat(jtemp.getJsonObject("temp").get("day").toString()));
@@ -135,7 +137,7 @@ public class WeatherContainer {
             if (findSubstring("rain", weather) || findSubstring("storm", weather) || findSubstring("cloud", weather) || findSubstring("snow", weather)) {
 
                 wdata = new WeatherData();
-                wdata.setWeatherCond(jtemp.getJsonArray("weather").getJsonObject(0).getString("main"));
+                wdata.setWeatherTag(jtemp.getJsonArray("weather").getJsonObject(0).getString("main"));
                 wdata.setWeather(jtemp.getJsonArray("weather").getJsonObject(0).getString("description"));
                 wdata.setDate(jtemp.get("dt").toString());
                 wdata.setCity(city);
@@ -180,7 +182,7 @@ public class WeatherContainer {
             if (!findSubstring("rain", weather) && !findSubstring("storm", weather) && !findSubstring("snow", weather)) {
 
                 wdata = new WeatherData();
-                wdata.setWeatherCond(jtemp.getJsonArray("weather").getJsonObject(0).getString("main"));
+                wdata.setWeatherTag(jtemp.getJsonArray("weather").getJsonObject(0).getString("main"));
                 wdata.setWeather(jtemp.getJsonArray("weather").getJsonObject(0).getString("description"));
                 wdata.setDate(jtemp.get("dt").toString());
                 wdata.setCity(city);
@@ -200,7 +202,7 @@ public class WeatherContainer {
             wtemp.setDate("N/A");
             wtemp.setCity(city);
             wtemp.setTemp(0);
-            wtemp.setWeatherCond("N/A");
+            wtemp.setWeatherTag("N/A");
             nextSunnyForecast = new ArrayList<>();
             nextSunnyForecast.add(wtemp);
         }
