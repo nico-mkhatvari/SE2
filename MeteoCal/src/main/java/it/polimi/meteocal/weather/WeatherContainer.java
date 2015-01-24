@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
+import javax.ejb.Stateless;
 import javax.json.JsonObject;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
@@ -22,6 +23,7 @@ import javax.ws.rs.core.MediaType;
  *
  * @author terminator
  */
+@Stateless
 @Path("/w")
 public class WeatherContainer {
 

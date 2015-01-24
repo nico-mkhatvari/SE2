@@ -48,15 +48,27 @@ public class CalendarTimer {
         int i = 0;
 
         List<Events> expiredEvents = em.createNamedQuery("Events.expiredEvents", Events.class).setParameter("enddate", addXhours(0), TemporalType.TIMESTAMP).getResultList();
-        List<Events> event24 = em.createNamedQuery("Events.expiredEvents", Events.class).setParameter("enddate", addXhours(24), TemporalType.TIMESTAMP).getResultList();
-        //List<Events> event72 = em.createNamedQuery("Events.expiredEvents", Events.class).setParameter("enddate", addXhours(72), TemporalType.TIMESTAMP).getResultList();
         deleteExpiredEvents(expiredEvents);
+        
+        List<Events> event24 = em.createNamedQuery("Events.notifyOutdoorEvents", Events.class)
+                .setParameter("enddate", addXhours(24), TemporalType.TIMESTAMP)
+                .setParameter("outdoor", true)
+                .getResultList();
+        List<Events> event72 = em.createNamedQuery("Events.notifyOutdoorEvents", Events.class)
+                .setParameter("enddate", addXhours(72), TemporalType.TIMESTAMP)
+                .setParameter("outdoor", true)
+                .getResultList();
 
         //Check weather RAIN || SNOW || STORM
-        List<Events> badEvent = checkWeatherConditions(event24);
+        List<Events> badEvent24 = checkWeatherConditions(event24);
+        List<Events> badEvent72 = checkWeatherConditions(event72);
 
-        if (!badEvent.isEmpty()) {
-            createNotifications(badEvent);
+        if (!badEvent24.isEmpty()) {
+            createNotifications(badEvent24);
+        }
+
+        if (!badEvent72.isEmpty()) {
+            create72Notification(badEvent72);
         }
 
     }
@@ -101,6 +113,26 @@ public class CalendarTimer {
         }
     }
 
+    private void create72Notification(List<Events> events) {
+        Notification n;
+        for (Events e : events) {
+
+            n = new Notification();
+            n.setEventid(e);
+            n.setUseremail(e.getOrganizer());
+
+            List<Notification> sizeResult = em.createNamedQuery("FindSentNotification", Notification.class)
+                    .setParameter("eventid", e)
+                    .setParameter("useremail", e.getOrganizer())
+                    .getResultList();
+            if (sizeResult.isEmpty()) {
+                n.setViewed(false);
+                NotificationEjb.createNotification(n);
+            }
+        }
+
+    }
+    
     private void deleteExpiredEvents(List<Events> expiredEvents) {
 
         for (Events e : expiredEvents) {

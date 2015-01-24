@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package it.polimi.meteocal.weather;
+
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -13,7 +14,7 @@ import java.util.Date;
  * @author terminator
  */
 public class WeatherData {
-    
+
     private String city;
     private String weather;
     private String date;
@@ -27,12 +28,9 @@ public class WeatherData {
     public void setWeatherCond(String weatherCond) {
         this.weatherCond = weatherCond;
     }
-    
-    public WeatherData(){
-    }
 
-    
-    
+    public WeatherData() {
+    }
 
     public String getCity() {
         return city;
@@ -41,7 +39,7 @@ public class WeatherData {
     public void setCity(String city) {
         this.city = city;
     }
-    
+
     public String getWeather() {
         return weather;
     }
@@ -55,10 +53,13 @@ public class WeatherData {
     }
 
     public void setDate(String date) {
-       
-        Date d = new Date(new Timestamp(Long.parseLong(date)*1000).getTime());
-        String formatdate = new SimpleDateFormat("dd-MM-yyyy").format(d);
-        this.date = formatdate;
+        if (!date.equals("N/A")) {
+            Date d = new Date(new Timestamp(Long.parseLong(date) * 1000).getTime());
+            String formatdate = new SimpleDateFormat("dd-MM-yyyy").format(d);
+            this.date = formatdate;
+        } else {
+            this.date = date;
+        }
     }
 
     public float getTemp() {
@@ -68,6 +69,5 @@ public class WeatherData {
     public void setTemp(float temp) {
         this.temp = temp;
     }
-    
-    
+
 }

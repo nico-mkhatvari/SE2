@@ -16,51 +16,49 @@ import java.util.TimeZone;
  *
  * @author terminator
  */
-public class Weather {
+
+public class Weather{
 
     private Calendar date, endDate, startDate;
     private String city;
+    
+    private WeatherContainer wc;
 
     public WeatherData getSingleWeather(Events e) {
         
         processEvents(e);
-        WeatherContainer wc = new WeatherContainer();
+        wc = new WeatherContainer();
         wc.initSingleJson(date, date, city);
-        
         return wc.getWeatherDlist().get(0);
     }
 
     public List<WeatherData> getIntervalWeather(Events e) {
         
         processEvents(e);
-        WeatherContainer wc = new WeatherContainer();
+        wc = new WeatherContainer();
         wc.initSingleJson(startDate, endDate, city);
-        
         return wc.getWeatherDlist();
     }
 
     public List<WeatherData> getBadWeatherData(Events e) {
         
         processEvents(e);
-        WeatherContainer wc = new WeatherContainer();
+        wc = new WeatherContainer();
         wc.initSingleJson(startDate, endDate, city);
-        
         return wc.getBadWeather();
     }
     
     public List<WeatherData> getWeatherSunnyDays(Events e) {
         
         processEvents(e);
-        WeatherContainer wc = new WeatherContainer();
+        wc = new WeatherContainer();
         wc.initSingleJson(startDate, endDate, city);
-        
         return wc.getNextSunnyForecast();
     }
     
     //Methods for pre-processing
     private Calendar dateToCalendar(Date date) {
         Calendar cal = new GregorianCalendar(TimeZone.getTimeZone("GMT+1"));
-        System.out.println(cal.getTime());
         cal.setTime(date);
         return cal;
     }
