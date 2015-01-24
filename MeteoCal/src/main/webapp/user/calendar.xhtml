@@ -46,10 +46,13 @@
             <p:dialog styleClass="dialog" widgetVar="eventDialog" header="Event Info" showEffect="clip" hideEffect="clip" dynamic="true" height="550">
                 <p:tabView id="eventDetails">
                     <p:tab title="Details">
-                        <h:panelGrid >
+                        <h:panelGrid id="eventgrid">
                             <p:row>
                                 <h:outputLabel for="title" value="Title:" />
-                                <h:inputText id="title" value="#{calendarBean.scheduleEvent.title}" readonly="#{calendarBean.notOrganizer}" required="true" requiredMessage="required field"/>
+                                <h:inputText id="title" value="#{calendarBean.scheduleEvent.title}" readonly="#{calendarBean.notOrganizer}" required="true" requiredMessage="Title required">
+                                    <f:validateLength minimum="1"/>
+                                </h:inputText>
+                                <p:message id="titlemsg" for="title"/>
                             </p:row>
                             <p:row>
                                 <h:outputLabel for="description" value="Description:" />
@@ -57,7 +60,7 @@
                             </p:row>
                             <p:row>
                                 <h:outputLabel for="from" value="From:" />
-                                <p:calendar id="from" value="#{calendarBean.scheduleEvent.startDate}" mindate="#{calendarBean.today}" pattern="yyyy-MM-dd HH:mm" readonly="#{calendarBean.notOrganizer}" required="true" requiredMessage="required field">
+                                <p:calendar id="from" value="#{calendarBean.scheduleEvent.startDate}" mindate="#{calendarBean.today}" pattern="yyyy-MM-dd HH:mm" readonly="#{calendarBean.notOrganizer}">
                                     <f:convertDateTime pattern="yyyy-MM-dd HH:mm" timeZone="GMT+1"/>
                                     <p:ajax event="dateSelect" update="to"/>
                                 </p:calendar>
@@ -70,21 +73,24 @@
                             </p:row>
                             <p:row>
                                 <h:outputLabel for="outdoor" value="Outdoor/Indoor:" />
-                                <p:selectOneRadio id="outdoor" value="#{calendarBean.scheduleEvent.outdoor}" disabled="#{calendarBean.notOrganizer}" required="true" requiredMessage="required field">
+                                <p:selectOneRadio id="outdoor" value="#{calendarBean.scheduleEvent.outdoor}" disabled="#{calendarBean.notOrganizer}">
                                     <f:selectItem itemLabel="outdoor" itemValue="#{true}"/>
                                     <f:selectItem itemLabel="indoor" itemValue="#{false}"/>
                                 </p:selectOneRadio>
                             </p:row>
                             <p:row>
                                 <h:outputLabel for="privacy" value="Privacy:" />
-                                <p:selectOneRadio id="privacy" value="#{calendarBean.scheduleEvent.privacy}" disabled="#{calendarBean.notOrganizer}" required="true" requiredMessage="required field">
+                                <p:selectOneRadio id="privacy" value="#{calendarBean.scheduleEvent.privacy}" disabled="#{calendarBean.notOrganizer}">
                                     <f:selectItem itemLabel="public" itemValue="#{false}"/>
                                     <f:selectItem itemLabel="private" itemValue="#{true}"/>
                                 </p:selectOneRadio>
                             </p:row>
                             <p:row>
                                 <h:outputLabel for="city" value="City:" />
-                                <h:inputText id="city" value="#{calendarBean.scheduleEvent.city}" readonly="#{calendarBean.notOrganizer}" required="true" requiredMessage="required field"/>
+                                <h:inputText id="city" value="#{calendarBean.scheduleEvent.city}" readonly="#{calendarBean.notOrganizer}" required="true" requiredMessage="City required" >
+                                    <f:validateLength minimum="1"/>
+                                </h:inputText>
+                                <p:message id="citymsg" for="city"/>
                             </p:row>
                             <p:row>
                                 <h:outputLabel for="address" value="Address:" />
@@ -105,12 +111,13 @@
                                 </p:dataTable>
                             </p:row>
                             <p:row>
-                                <p:commandButton value="Save" actionListener="#{calendarBean.addEvent}" validateClient="true"
-                                                 oncomplete="PF('myschedule').update();PF('eventDialog').hide();" disabled="#{calendarBean.notOrganizer}"/>
-                                <p:commandButton value="Delete" actionListener="#{calendarBean.deleteEvent}"  validateClient="true"
+                                <p:commandButton value="Save" actionListener="#{calendarBean.addEvent}"
+                                                 oncomplete="if (args &amp;&amp; !args.validationFailed)PF('myschedule').update();if (args &amp;&amp; !args.validationFailed)PF('eventDialog').hide();" disabled="#{calendarBean.notOrganizer}" update="eventgrid" process="@all"/>
+                                <p:commandButton value="Delete" actionListener="#{calendarBean.deleteEvent}"
                                                  oncomplete="PF('myschedule').update();PF('eventDialog').hide();" disabled="#{calendarBean.notOrganizer}"/>
                             </p:row>
                         </h:panelGrid>
+                        <h:messages  style="color: red"/>
                     </p:tab>
                     <p:tab title="Forecast" disabled="#{calendarBean.disableForecast}">
                         <p:commandButton value="Get Weather Info" update="forecastlist" action="#{weatherManager.getWeather(calendarBean.scheduleEvent.eventId)}"/>
