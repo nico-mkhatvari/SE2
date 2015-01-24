@@ -27,7 +27,8 @@ import javax.xml.bind.annotation.XmlTransient;
 @Entity(name = "USERS")
 @NamedQueries({
     @NamedQuery(name = "USERS.findAll", query = "SELECT u FROM USERS u"),
-    @NamedQuery(name = "USERS.findByEmail", query = "SELECT u FROM USERS u WHERE u.email = :email")})
+    @NamedQuery(name = "USERS.findByEmail", query = "SELECT u FROM USERS u WHERE u.email = :email"),
+    @NamedQuery(name = "USERS.findByEmailAndPrivacy", query = "SELECT u FROM USERS u"),})
 public class User implements Serializable {
     @OneToMany(mappedBy = "useremail")
     private Collection<Notification> notificationCollection;
