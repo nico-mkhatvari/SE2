@@ -60,11 +60,6 @@ public class CalendarManager implements Serializable {
             }
         }
 
-        //checks if the calendar's owner set the calendar as private
-        if (calendarOwner.getPrivacy() == true && !calendarOwner.equals(loggedUser)) {
-
-        }
-
         //gets the list of the events where the owner is a participant
         List<InvitationList> myInvitationlist = invitationListEJB.findParticipatingListByEmail(calendarOwner.getEmail());
         List<Events> myEventlist = new ArrayList<>();
@@ -72,7 +67,7 @@ public class CalendarManager implements Serializable {
             InvitationList tempList = myInvitationlist.get(i);
 
             //if it's public adds it to the event list
-            if (tempList.getEvents().getPrivacy() == true || loggedUser.equals(calendarOwner)) {
+            if (tempList.getEvents().getPrivacy() == false || loggedUser.equals(calendarOwner)) {
                 myEventlist.add(tempList.getEvents());
             }
         }
@@ -162,6 +157,7 @@ public class CalendarManager implements Serializable {
 ////////////////////////////////////////////////////////////////////////////////////////
     public void addEvent() {
         User eventOrganizer = loggedUser;
+        int eventId = scheduleEvent.getEventId();
         String eventName = scheduleEvent.getTitle();
         String eventDescription = scheduleEvent.getDescription();
         Date eventStartdate = scheduleEvent.getStartDate();
@@ -173,11 +169,9 @@ public class CalendarManager implements Serializable {
         List<User> eventInvitedList = scheduleEvent.getParticipationlist(); //get the selection
 
         //if it's an existing event, delete it
-        if (scheduleEvent.getId() != null) {
-            int eventId = scheduleEvent.getEventId();
-            event = eventsEjb.find(eventId);
+        if (eventsEjb.find(eventId) != null) {
             eventsEjb.deleteEvent(eventId);
-            model.updateEvent(scheduleEvent);
+            model.deleteEvent(scheduleEvent);
         }
         
         //saves a new event
@@ -196,20 +190,22 @@ public class CalendarManager implements Serializable {
         } else {
             int eventid = scheduleEvent.getEventId();
             eventsEjb.deleteEvent(eventid); // invitationlist is deleted on cascade
-            model.updateEvent(scheduleEvent);
+            model.deleteEvent(scheduleEvent);
         }
         scheduleEvent = new MyScheduleEvent();//reset dialog form
         init();
     }
 
     public void onEventSelect(SelectEvent selectEvent) {
-        disableForecast = false;
         scheduleEvent = (MyScheduleEvent) selectEvent.getObject();
+        if(((MyScheduleEvent)selectEvent.getObject()).isOutdoor() == true){  //forecast only for outdoor event
+            disableForecast = false;
+        }
     }
 
     public void onDateSelect(SelectEvent selectEvent) {
-        disableForecast = true;
         scheduleEvent = new MyScheduleEvent("", (Date) selectEvent.getObject(), (Date) selectEvent.getObject());
+        disableForecast = true;    
     }
 
     public boolean isNotOrganizer() {
@@ -226,6 +222,9 @@ public class CalendarManager implements Serializable {
     public String search(String email) {
         if (um.findUser(email) == null) {
             return "usernotfound?faces-redirect=true&email=" + email;
+        }
+        if (um.findUser(email).getPrivacy() == true){
+            return "privatecalendar?faces-redirect=true&email=" + email;
         }
         return "calendar?faces-redirect=true&email=" + email;
     }

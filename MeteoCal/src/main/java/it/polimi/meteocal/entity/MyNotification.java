@@ -23,7 +23,7 @@ public class MyNotification {
     private String eventCity;
     private String eventAddress;
     private String message;
-    private Date suggestedDay;
+    private String suggestedDay;
 
     public MyNotification() {
     }
@@ -41,7 +41,7 @@ public class MyNotification {
         this.message = message;
     }
 
-    public MyNotification(int notificationId, int eventId, String userEmail, String eventName, String eventDescription, Date eventStartdate, Date eventEnddate, String eventCity, String eventAddress, String message, Date suggestedDay) {
+    public MyNotification(int notificationId, int eventId, String userEmail, String eventName, String eventDescription, Date eventStartdate, Date eventEnddate, String eventCity, String eventAddress, String message, String suggestedDay) {
         this.notificationId = notificationId;
         this.eventId = eventId;
         this.userEmail = userEmail;
@@ -135,11 +135,11 @@ public class MyNotification {
         this.message = message;
     }
 
-    public Date getSuggestedDay() {
+    public String getSuggestedDay() {
         return suggestedDay;
     }
 
-    public void setSuggestedDay(Date suggestedDay) {
+    public void setSuggestedDay(String suggestedDay) {
         this.suggestedDay = suggestedDay;
     }
 

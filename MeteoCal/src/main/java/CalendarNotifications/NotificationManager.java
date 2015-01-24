@@ -10,9 +10,10 @@ import it.polimi.meteocal.control.InvitationListEJB;
 import it.polimi.meteocal.entity.Events;
 import it.polimi.meteocal.entity.InvitationList;
 import it.polimi.meteocal.entity.MyNotification;
+import it.polimi.meteocal.weather.Weather;
+import it.polimi.meteocal.weather.WeatherData;
 import it.polimi.registration.business.security.boundary.UserManager;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -45,7 +46,7 @@ public class NotificationManager {
         //inizializzazione delle liste
         myNotificationlist = new ArrayList<>();
         myNotification = new MyNotification();
-        
+
         //ricerca della lista degli eventi a cui partecipo
         List<InvitationList> myParticipation = invitationListEJB.findInvitationListByEmail(um.getLoggedUser().getEmail());
         List<Events> myEvents = new ArrayList<>();
@@ -62,15 +63,29 @@ public class NotificationManager {
             //Se è organizzatore, tra 3 giorni brutto meteo per l'evento, suggerisce il primo giorno di sole disponibile
             if (e.getOrganizer().equals(um.getLoggedUser())) {
 
-                //inserire metodo che, dato l'eventid, cerca primo giorno di sole e ritorna una stringa o un date                
-                Date suggetedDay = new Date(); //test
+                //cerca i primo/i giorno/i di sole              
+                String suggetedDay = "";
+                Weather w = new Weather();
+                List<WeatherData> wdlist = w.getWeatherSunnyDays(e);
 
-                myNotificationlist.add(new MyNotification(n.getId(), e.getId(), n.getUseremail().getEmail(), 
-                        e.getName(), e.getDescription(), e.getStartdate(), e.getEnddate(), e.getCity(), e.getAddress(), 
+                //if any sunny day was found
+                if (wdlist.isEmpty()) {
+                    suggetedDay = suggetedDay + "Not sunny day found" + "\n";
+                }
+                for (WeatherData wd : wdlist) {
+                    if (wd.getDate() != null) {
+                        suggetedDay = suggetedDay + wd.getWeatherTag() + " - " + wd.getDate() + "\n";
+                    } else {    //if any sunny day was found
+                        suggetedDay = suggetedDay + "Not sunny day found" + "\n";
+                    }
+                }
+
+                myNotificationlist.add(new MyNotification(n.getId(), e.getId(), n.getUseremail().getEmail(),
+                        e.getName(), e.getDescription(), e.getStartdate(), e.getEnddate(), e.getCity(), e.getAddress(),
                         "Bad weather condition for organized event", suggetedDay));
             } else { //altrimenti brutto meteo per l'evento a cui partecipi domani
-                myNotificationlist.add(new MyNotification(n.getId(), e.getId(), n.getUseremail().getEmail(), 
-                        e.getName(), e.getDescription(), e.getStartdate(), e.getEnddate(), e.getCity(), e.getAddress(), 
+                myNotificationlist.add(new MyNotification(n.getId(), e.getId(), n.getUseremail().getEmail(),
+                        e.getName(), e.getDescription(), e.getStartdate(), e.getEnddate(), e.getCity(), e.getAddress(),
                         "Bad weather condition for tomorrow event"));
             }
         }

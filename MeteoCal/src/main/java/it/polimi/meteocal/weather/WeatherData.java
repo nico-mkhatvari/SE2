@@ -19,14 +19,14 @@ public class WeatherData {
     private String weather;
     private String date;
     private float temp;
-    private String weatherCond;
+    private String weatherTag;
 
-    public String getWeatherCond() {
-        return weatherCond;
+    public String getWeatherTag() {
+        return weatherTag;
     }
 
-    public void setWeatherCond(String weatherCond) {
-        this.weatherCond = weatherCond;
+    public void setWeatherTag(String weatherTag) {
+        this.weatherTag = weatherTag;
     }
 
     public WeatherData() {

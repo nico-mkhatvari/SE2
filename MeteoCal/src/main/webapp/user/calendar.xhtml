@@ -38,7 +38,7 @@
             </p:panelGrid>
         </h:form>
         <h:form style="margin: 0 auto; width: 90%">
-            <h:outputText value="Welcome to #{calendarBean.calendarOwner.name}'s caledar" style="font-weight:bold; font-size:2em; margin: 0 auto"/>
+            <h:outputText value="Welcome to #{calendarBean.calendarOwner.name}'s caledar" style="font-size:1.5em; margin: 0 auto"/>
             <p:schedule id="schedule" value="#{calendarBean.model}"  draggable="false" resizable="true" view="month" rightHeaderTemplate="null" timeZone="GMT+1" widgetVar="myschedule" >
                 <p:ajax event="dateSelect" listener="#{calendarBean.onDateSelect}" disabled="#{calendarBean.notOwner}" update="eventDetails" oncomplete="PF('eventDialog').show();" />
                 <p:ajax event="eventSelect" listener="#{calendarBean.onEventSelect}" update="eventDetails" oncomplete="PF('eventDialog').show();"/>
