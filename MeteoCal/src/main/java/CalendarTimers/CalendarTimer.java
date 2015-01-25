@@ -51,11 +51,11 @@ public class CalendarTimer {
         deleteExpiredEvents(expiredEvents);
         
         List<Events> event24 = em.createNamedQuery("Events.notifyOutdoorEvents", Events.class)
-                .setParameter("enddate", addXhours(24), TemporalType.TIMESTAMP)
+                .setParameter("startdate", addXhours(24), TemporalType.TIMESTAMP)
                 .setParameter("outdoor", true)
                 .getResultList();
         List<Events> event72 = em.createNamedQuery("Events.notifyOutdoorEvents", Events.class)
-                .setParameter("enddate", addXhours(72), TemporalType.TIMESTAMP)
+                .setParameter("startdate", addXhours(72), TemporalType.TIMESTAMP)
                 .setParameter("outdoor", true)
                 .getResultList();
 

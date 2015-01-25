@@ -179,7 +179,7 @@ public class WeatherContainer {
             String weather = jtemp.getJsonArray("weather").getJsonObject(0).getString("main");
 
             //Add clouds or sun
-            if (!findSubstring("rain", weather) && !findSubstring("storm", weather) && !findSubstring("snow", weather)) {
+            if (findSubstring("clear", weather)) {
 
                 wdata = new WeatherData();
                 wdata.setWeatherTag(jtemp.getJsonArray("weather").getJsonObject(0).getString("main"));
