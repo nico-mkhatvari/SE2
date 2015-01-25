@@ -9,7 +9,6 @@ import it.polimi.meteocal.entity.Events;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.Singleton;
-import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
@@ -21,7 +20,7 @@ import javax.persistence.TypedQuery;
 @Singleton
 public class EventsEJB extends AbstractFacade<Events> {
     @PersistenceContext(unitName = "it.polimi_MeteoCal_war_1.0-SNAPSHOTPU")
-    private EntityManager em;
+    public EntityManager em;
 
     @Override
     protected EntityManager getEntityManager() {
@@ -35,7 +34,7 @@ public class EventsEJB extends AbstractFacade<Events> {
     public void save(Events event) {
         em.persist(event);
     }
-    
+        
     public Events findEvent(int id){
         return em.find(Events.class, id);
     }

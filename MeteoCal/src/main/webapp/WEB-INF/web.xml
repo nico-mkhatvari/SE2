@@ -20,7 +20,7 @@
     </session-config>
     <login-config>
         <auth-method>FORM</auth-method>
-        <realm-name>JDBCRealm</realm-name>
+        <realm-name>jdbcRealmRegistration</realm-name>
         <form-login-config>
             <form-login-page>/login.xhtml</form-login-page>
             <form-error-page>/login.xhtml?error=true</form-error-page>
